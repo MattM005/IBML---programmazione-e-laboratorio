@@ -2185,3 +2185,98 @@ int mcd(int x, int y) (
 
 
 
+; ** utilizzo di map (map procedura ricorsione)
+; Altri esercizi : 02-09-2022
+; LPS --> qs es lo rielabora, modificando le funzioni t.c. calcola la lista di *tutte* le
+;         sottosequenze palindromiche più lunghe di s, senza ripetizioni, (non 1 sola).
+; (lps-all "muradaimerlixsostegno") --> ("madam" "radar" "esose")
+; (lps-all "acetonellenoteca") --> ("acetonellenoteca")
+; (lps-all "ciao") --> ("c" "i" "a" "o")
+
+(define lps-all    ; val: lista di stringhe
+  (lambda (s)      ; s  : stringa
+    (let ((n (string-length s))
+          )
+      (cond ((< n 2)
+             (list s)
+             )
+            ((char=? (string-ref s 0) (string-ref s (- n 1)))  ; 1 e ultimo carattere uguali
+             (map 
+              (lambda (x)                                   ; attacco i caratteri uguali
+                (string-append (substring s 0 1) x (substring s (- n 1)))
+                )              
+              (lps-all (substring s 1 (- n 1)))
+              ))
+            (else
+             (longer-all (lps-all (substring s 0 (- n 1)))
+                         (lps-all (substring s 1))
+                         ))
+            ))
+    ))
+
+
+(define longer-all    ; val: lista di stringhe  --> (prendo il primo elemento, non append e basta)
+  (lambda (u v)       ; x,y: liste di stringhe
+    (let ((m (string-length (car u)))
+          (n (string-length (car v)))
+          )
+      (cond ((< m n)
+             v)
+            ((> m n)
+             u)
+            (else
+             (append u v)
+             )
+            )
+      )
+    ))
+
+
+
+; Comando sort: ordina una lista
+; (sort '(4 5 2 9 3) <)  --> (list 2 3 4 5 9)   ASCENDENTE
+; (sort '(4 5 2 9 3) >)  --> (list 9 5 4 3 2)   DISCENDENTE
+
+
+
+"""
+(define f
+  (lambda (x y)
+     (+ (* 3 x) (* y y))
+  ))
+
+(+ (f 1 2) (f 2 1))
+(+ (+ (* 3 1) (* 2 2)) (f 2 1))
+(+ (+ 3 (* 2 2)) (f 2 1))
+(+ (+ 3 4) (f 2 1))
+(+ 7 (f 2 1))
+(+ 7 (+ (* 3 2) (* 1 1)))
+(+ 7 (+ 6 (* 1 1)))
+(+ 7 (+ 6 1))
+(+ 7 7)
+14
+
+(f 1 (* 2 3))
+(f 1 6)
+(+ (* 3 1) (* 6 6))
+(+ 3 (* 6 6))
+(+ 3 36)
+39
+
+(f (f 1 (* 2 3)) 19)
+(f (f 1 6) 19)
+(f (+ (* 3 1) (* 6 6)) 19)
+(f (+ 3 (* 6 6)) 19)
+(f (+ 3 36) 19)
+(f 39 19)
+(+ (* 3 39) (* 19 19))
+(+ 117 (* 19 19))
+(+ 117 361)
+478
+
+"""
+
+
+
+
+; Es: 
