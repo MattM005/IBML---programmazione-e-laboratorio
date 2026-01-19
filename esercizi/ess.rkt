@@ -2321,25 +2321,39 @@ int mcd(int x, int y) (
 
 
 ; LCS-align (variante LCS)
-(define lcs-align ; val: coppia di liste di caratteri
-  (lambda (u v) ; u, v: stringhe
+; Risolve una vavriante del problema della sottosequenza com. più lunga, identificando
+; quali caratteri devono essere rimossi dalle due stringhe u e v passate come argomento
+; affinché le rispettive parti restanti, che costituiscono la LCS, possano essere “allineate”.
+; Più specificamente, lcs-align restituisce una coppia di liste,
+; - la 1* coppia contenente i caratteri da rimuovere da u,
+; - la 2* coppia quelli da rimuovere da v.
+
+
+; (lcs-align "ac" "bc") → ((#\a) (#\b))
+; (lcs-align "atrio" "arto") → ((#\t #\i) (#\t))
+; (lcs-align "epico" "esilio") → ((#\p #\c) (#\s #\l #\i))
+
+(define lcs-align  ; val: coppia di liste di caratteri
+  (lambda (u v)    ; u, v: stringhe
     (let ((m (string-length u)) (n (string-length v))
-                                )
-      (cond ((or (= m 0) (= n 0))
+           )
+      (cond ((or (= m 0) (= n 0))                        ; >=1 /2 stringhe è vuota: caratteri rimanenti vanno rimossi
              (list (string->list u) (string->list v))
              )
-            ((char=? (string-ref u 0) (string-ref v 0))
-             XXX
+            ((char=? (string-ref u 0) (string-ref v 0))  ; 1* carattere uguale (u,v): si prosegue senza rimuovere il primo carattere
+             (lcs-align (substring u 1) (substring v 1))
              )
-            (else
+            (else                                        ; caratteri diversi
              (let ((du (lcs-align (substring u 1) v))
-                   (dv  XXX  )
+                   (dv (lcs-align u (substring v 1)))
                    )
-               (if (> (+ (length (car du)) (length (cadr du)))
+               (if (> (+ (length (car du)) (length (cadr du))) ; scelgo la sol. che rimuove meno caratteri
                       (+ (length (car dv)) (length (cadr dv)))
                       )
-                   (list (car dv) (cons (string-ref v 0) (cadr dv)))
-                   XXX
+                    ; aggiorna la posizione 1 (rimossi da v), posizione 0 invariata
+                   (list (car dv) (cons (string-ref v 0) (cadr dv))) 
+                    ; aggiorna la posizione 0 (rimossi da u), posizione 1 invariata                  
+                   (list (cons (string-ref u 0) (car du)) (cadr du))
                    )))
             )
       )
@@ -2348,6 +2362,75 @@ int mcd(int x, int y) (
 """
 Con riferimento alla valutazione di (lcs-align 'ac' 'bc'), quali sono i valori associati
 alle variabili du e dv nella prima invocazione della procedura ricorsiva lcs-align?
-  du =
-  dv =
+  du = (lcs-align 'c' 'bc') --> (() (#\b))
+  dv = (lcs-align 'ac' 'c') --> ((#\a) ())
+
+ infatti:
+  (lcs-align #\a #\b) --> ((#\a) (#\b))
 """
+; perché:
+; du1 = (lcs-align "" "bc") --> (() (#\b #\c))
+; dv1 = (lcs-align "c" "c)  --> (() ())
+
+; du2 = (lcs-align "c" "c") --> (() ())
+; dv2 = (lcs-align "ac" "") --> ((#\a #\c) ())
+
+; dv = ((#\a) ()) , du = (() (#\b))
+
+
+
+
+
+; Il programma parity-check? simula un controllo di parità relativo a
+; una sequenza di parole binarie, tutte della stessa lunghezza, contenute in una lista.
+; Immaginando di incolonnare le parole della sequenza, si tratta di verificare che il
+; numero di 1 presenti in ciascuna colonna sia pari; se è effettivamente così per ogni colonna,
+; allora il controllo ha successo e parity-check? restituisce il valore booleano true,
+; altrimenti fallisce e parity-check? restituisce false.
+
+; Per esempio:
+;  (parity-check? '("0110" "1000" "1011" "0101")) → true   8
+;  (parity-check? '("0110" "1100" "1011" "0101")) → false  9
+
+
+(define parity-check? ; val: booleano
+  (lambda (words)     ; words: lista non vuota di stringhe di 0/1 della stessa lunghezza
+    (rec-check? words 0 (string-length (car words)))   ; (words, 0, lunghezza 1*stringa)
+    ))
+
+(define rec-check?
+  ;(w, 0, length 1*str)
+  (lambda (words k n)
+    (if (< k n)  ; k<n
+        (let ((kths (map (bit k) words))) ; kths: lista dei valori dei bit in posizione k nelle parole di words
+          (if (even? (count-ones kths))
+              (rec-check? words (+ k 1) n)
+              false
+              ))
+        true
+        )))
+
+(define bit
+  (lambda (k)
+    (lambda (w)
+      (if (char=? (string-ref w k) #\1)
+          1
+          0
+          )
+      )
+    ))
+
+(define count-ones
+  (lambda (cs)
+    (if (null? cs)
+        0
+        (+ (car cs) (count-ones (cdr cs)))
+        )))
+
+
+
+; esercizi vari
+
+
+
+
