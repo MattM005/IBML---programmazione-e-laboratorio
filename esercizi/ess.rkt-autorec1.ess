@@ -2033,6 +2033,7 @@ int mcd(int x, int y) (
 
 ;  Passo induttivo: considerato k = k+1
 ;  (fh "000...111") --> 3*2^(k-1) + 1               // k=solo1, k+1=almeno1zero
+;  (cond ... ((char=? ...)))
 ;   --> (- (* 2 (f (substring "000...111" 1))) 1)   // k+1
 ;   --> (- (* 2 (f "00...111")) 1)                  // k ==> posso applicare l'ipotesi induttiva
 ;   --> (- (* 2 (3*2^(k-2)+1)) 1)                   // applicato l'ipotesi ind. (verificato le condizioni)
@@ -2042,7 +2043,7 @@ int mcd(int x, int y) (
 
 
 
-(list 12 14 15 202)
+
 
 
 ; Procedura diffs: data una lista non vuota di interi, restituisce la lista delle differenze fra
@@ -2278,76 +2279,11 @@ int mcd(int x, int y) (
 
 
 
-; Es: pair
-; Dati x,y pair costruisce la coppia dei (valore medio, semidifferenza), rispettivamente:
-; (x+y)/2
-; |x-y|/2
-; dove coppia -> (lista e1 e2)
-; Inoltre, date 2 liste numeriche della stessa lunghezza, la procedura pair-list applica pair
-; e restituisce la lista delle coppie valore medio e semidifferenza relative agli elementi con
-; la stessa posizione nelle due liste.
-;
-; (pair 4.8 1.2) → (3.0 1.8)
-; (pair 3.5 5.7) → (4.6 1.1)
-; (pair 8.1 0.3) → (4.2 3.9)
-; (pair 5.0 3.0) → (4.0 1.0)
-
-(define pair
-  (lambda (x y)
-    (if (and (number? x) (number? y))
-        (list
-         (/ (+ x y) 2)
-         (/ (abs (- x y)) 2)
-         )
-        null
-        )
-    ))
-  
-
-; (pair-list '(4.8 3.5 8.1) '(1.2 5.7 0.3)) → ((3.0 1.8) (4.6 1.1) (4.2 3.9))
-; (pair-list '(5.3 4.3 3.3) '(2.5 4.5 6.5)) → ((3.9 1.4) (4.4 0.1) (4.9 1.6))
-
-(define pair-list
-  (lambda (x y)
-    (if (not (and (null? x) (null? y)))
-        (cons (list (/ (+ (car x) (car y)) 2)
-                    (/ (abs (- (car x) (car y))) 2))
-              (pair-list (cdr x) (cdr y))             ; lista si accorcia di 1 alla volta
-              )      
-        null
-        )
-    ))
+; Es: 
 
 
 
-; LCS-align (variante LCS)
-(define lcs-align ; val: coppia di liste di caratteri
-  (lambda (u v) ; u, v: stringhe
-    (let ((m (string-length u)) (n (string-length v))
-                                )
-      (cond ((or (= m 0) (= n 0))
-             (list (string->list u) (string->list v))
-             )
-            ((char=? (string-ref u 0) (string-ref v 0))
-             XXX
-             )
-            (else
-             (let ((du (lcs-align (substring u 1) v))
-                   (dv  XXX  )
-                   )
-               (if (> (+ (length (car du)) (length (cadr du)))
-                      (+ (length (car dv)) (length (cadr dv)))
-                      )
-                   (list (car dv) (cons (string-ref v 0) (cadr dv)))
-                   XXX
-                   )))
-            )
-      )
-    ))
 
-"""
-Con riferimento alla valutazione di (lcs-align 'ac' 'bc'), quali sono i valori associati
-alle variabili du e dv nella prima invocazione della procedura ricorsiva lcs-align?
-  du =
-  dv =
-"""
+
+
+
