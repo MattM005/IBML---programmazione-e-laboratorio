@@ -1809,6 +1809,29 @@ int mcd(int x, int y) (
 
 
 
+
+
+; Versione iter-seq2
+; (iter-seq f x k) → ( x f(x) f(f(x)) f(f(f(x))) . . . . . . f(f(...f(x)...)) )
+; Detto diversamente, partendo da x ogni ulteriore elemento si ottiene applicando f a quello precedente. Esempi:
+
+; (iter-seq2 sqrt 256 4) → (256 16 4 2) [ sqrt denota la funzione radice quadrata ]
+; (iter-seq2 cdr '(1 2 3 4 5) 4) → ((1 2 3 4 5) (2 3 4 5) (3 4 5) (4 5))
+
+(define iter-seq2
+  (lambda (f x k)
+    (cond ((= k 0)
+          '())
+          ((= k 1) (list x))
+          (else
+            (cons x (iter-seq2 f (f x) (- k 1)))
+            )
+        )
+  ))
+
+
+
+
 ; Esercizio prova 21/01/22
 ; Procedura: data stringa(s), e int(k)>0, cyclic-pattern restituisce:
 ; a) la stringa p(pattern) di lunghezza k, se s è costituita dalla ripetizione ciclica di p 1+ volte
@@ -2398,10 +2421,9 @@ alle variabili du e dv nella prima invocazione della procedura ricorsiva lcs-ali
     (rec-check? words 0 (string-length (car words)))   ; (words, 0, lunghezza 1*stringa)
     ))
 
-(define rec-check?
-  ;(w, 0, length 1*str)
-  (lambda (words k n)
-    (if (< k n)  ; k<n
+(define rec-check?    ;
+  (lambda (words k n) ;(w, 0, length 1*str)
+    (if (< k n)       ; k<n
         (let ((kths (map (bit k) words))) ; kths: lista dei valori dei bit in posizione k nelle parole di words
           (if (even? (count-ones kths))
               (rec-check? words (+ k 1) n)
@@ -2430,6 +2452,80 @@ alle variabili du e dv nella prima invocazione della procedura ricorsiva lcs-ali
 
 
 ; esercizi vari
+; (sums 4) --> 10 
+; (sums 5) --> 15
+;
+(define sums
+  (lambda (n)
+    (if (= n 0)
+        0
+        ; se n = 4
+        ; (+ (sums 3) 4) -> 3
+        ; (+ (sums 2) 4) -> 2
+        ; (+ (sums 1) 4) -> 1
+        ; (+ (sums 0) 4) -> 0
+        ; (+ 0 4)        -> 4
+        ; = 10
+        (+ (sums (- n 1)) n)
+        )
+    ))
+
+; (count-part 4 5) --> 5 
+; (count-part 9 5) --> 23
+(define count-part
+  (lambda (n m)
+    (cond ((or (< n 0) (= m 0))
+           0)
+          ((= n 0)
+           1)
+          (else
+           (+ (count-part (- n m) m) (count-part n (- m 1)))
+           )
+          )
+    ))
+
+
+; (grid-paths 3 1) --> 1
+; (grid-paths 1 3) --> 1
+; (grid-paths 3 5) --> 15
+; (grid-paths 3 4) --> 10
+;
+(define grid-paths  ; val: intero
+  (lambda (n m)     ; n,m: interi+
+    (if (or (= n 1) (= m 1))
+        1
+        (+ (grid-paths n (- m 1)) (grid-paths (- n 1) m))
+        )
+    ))
+
+; (grid-paths 3 4) = (grid-paths 3 3) + (grid-paths 2 4)
+; (grid-paths 3 3) = (grid-paths 3 2) + (grid-paths 2 3)
+; (grid-paths 2 4) = (grid-paths 2 3) + (grid-paths 1 4)
+; (grid-paths 3 2) = (grid-paths 3 1) + (grid-paths 2 2)
+; (grid-paths 2 3) = (grid-paths 2 2) + (grid-paths 1 3)
+
+; casi base:
+; (grid-paths 3 1) = 1
+; (grid-paths 1 4) = 1
+; (grid-paths 1 3) = 1
+;
+; (grid-paths 2 2)
+; = (grid-paths 2 1) + (grid-paths 1 2)
+; = 1 + 1 = 2
+;
+; risalita:
+; (grid-paths 3 2) = 1 + 2 = 3
+; (grid-paths 2 3) = 2 + 1 = 3
+; (grid-paths 3 3) = 3 + 3 = 6
+; (grid-paths 2 4) = 3 + 1 = 4
+;
+; risultato finale:
+; (grid-paths 3 4) = 6 + 4 = 10
+
+
+
+
+
 
 
 
