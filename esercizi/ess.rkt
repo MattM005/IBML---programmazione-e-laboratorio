@@ -2689,7 +2689,19 @@ alle variabili du e dv nella prima invocazione della procedura ricorsiva lcs-ali
 ;
 ; Rispetto all'altra fila cambia che c'è l'espressione fattoriale Vx app.a N+ (stirling-1 x 1) -> (x-1)!
 ; L'ipotesi induttiva è la consegna stessa (tolgo il per ogni V)
-; --> 
+;
+; Vx app.a N+ (stirling-1 x 1) -> (x-1)!
+;
+; (stirling-1 x+1 1);    --> (cond ((= 1 x+1) 1) ((= 1 0) 0) (else ... ))
+;                        --> (+ (* (- x+1 1) (stirling-1 (- x+1 1) 1))
+;                            (stirling-1 (- x+1 1) (- 1 1)) )
+;                        --> (+ (* x (stirling-1 x 1)) (stirling-1 (- x+1 1) (- 1 1)))
+;                        --> (+ (* x (x-1)!) (stirling-1 (- x+1 1) (- 1 1)))       ; per l'ipotesi induttiva
+;                        --> (+ x! (stirling-1 (- x+1 1) (- 1 1)))
+;                        --> (+ x! (stirling-1 x 0))
+;                        --> (+ x! 0)
+;                        --> x!
+
 
 ; ---------------------------------------------------
 
