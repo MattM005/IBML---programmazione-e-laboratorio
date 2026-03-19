@@ -2523,10 +2523,173 @@ alle variabili du e dv nella prima invocazione della procedura ricorsiva lcs-ali
 ; (grid-paths 3 4) = 6 + 4 = 10
 
 
+; (tess-3-5 10) --> 1 possibilità
+; (tess-3-5 11) --> 3 possibilità
+(define tess-3-5
+  (lambda (n)
+    (if (< n 5)
+        3
+        (+ (tess-3-5 (- n 3))
+           (tess-3-5 (- n 5)))
+        )
+    ))
+
+
+
+; ----------------------------------------------------
 
 
 
 
+; Correzione prova accertamento 20.01.2026
+; (tess-2-5 10) --> 2
+; (tess-2-5 11) --> 4
+; I casi base coprono quello che si evince dall'analisi? In alcuni casi no.
+; Esistono soluzioni per tutti n ≥ 0? --> No.
+; Valori per cui il risultato è zero:
+; I valori di n per cui non esiste alcuna tassellatura (cioè (tess-2-5 n) = 0) sono:
+; 1, 3. (casi da 0 a 4)
+
+(define tess-2-5
+  (lambda (n)
+    (cond
+      ((= n 0) 1)
+      ((= n 1) 0)
+      ((= n 2) 1)
+      ((= n 3) 0)
+      ((= n 4) 1)
+      ((= n 5) 1)
+      ; ((= n 0) 1)
+      ; ((< n 0) 0)
+      (else
+       (+ (tess-2-5 (- n 2))
+          (tess-2-5 (- n 5)))
+       )
+      )
+    ))
 
 
+; (cumulative-prod '(5 1 4 2 3))        --> (5 5 20 40 120)
+; (cumulative-prod '(1 2 3 4 5 6 7 8))  --> (1 2 6 24 120 720 5040 40320)
+; idea base: usare dati procedurali
+(define cumulative-prod
+  (lambda (s)
+    (let ((m (lambda (x) (* (car s) x)))
+          (t (cdr s))
+          )
+      (if (null? t)
+          s                ; s non può essere vuoto. 1 arg==>cdr vuoto
+          (cons
+           (car s)
+           (map m (cumulative-prod t))
+           )))
+    ))
+
+
+; Somme cumulative
+(define cumulative-sum
+  (lambda (u)
+    (let ((v (cdr u))
+          (t (lambda (x) (+ (car u) x)))
+          )
+      (if (null? v)
+          u
+          (cons 
+           (car u)
+           (map t (cumulative-sum v))
+           )))
+    ))
+
+
+
+; Cumulative prod., però con la ricorsione di coda.
+; (cumulative-prod-rec '(5 1 4 2 3)) --> (list 120 40 20 5 5)
+(define cumulative-prod-rec
+  (lambda (s)
+    (tailrec-prod (cdr s) (list (car s)))    ;car=1* ;cdr=length-1*
+    ))
+
+(define tailrec-prod
+  (lambda (s u)
+    (if (null? s)
+         u                 ;(reverse u)
+        (tailrec-prod
+         (cdr s)
+         (cons (* (car s) (car u)) u))
+        )
+    ))
+
+
+; Cumulative sum solo ricorsivamente (ricorsione di coda)
+; (cumulative-sum-rec' (5 1 4 2 3))                --> (5 6 10 12 15)
+; (cumulative-sum-rec' (1 3 5 7 9 11 13 15 17 19)) --> (1 4 9 16 25 36 49 64 81 100)
+(define cumulative-sum-rec
+  (lambda (u)
+    (tailrec-sum (cdr u) (list (car u)))
+    ))
+
+(define tailrec-sum
+  (lambda (u r)
+    (if (null? u)
+         r           ;(reverse r)
+        (tailrec-sum
+         (cdr u)
+         (cons (+ (car u) (car r)) r)
+         ))
+  ))
+
+
+; Quarto e ult. es. Dim. Formale correttezza -
+; Calcolo numeri di Stirling di 1* specie (a lezione stato fatto 2* specie)
+; 
+(define stirling-1
+  (lambda (n k)
+    (cond ((= k n)
+           1)
+          ((= k 0)
+           0)
+          
+          (else
+           (+ (* (- n 1) (stirling-1 (- n 1) k))
+              (stirling-1 (- n 1) (- k 1))
+              )
+           )
+          )
+    ))
+
+; Proprietà generale:
+; ∀x ∈ N+ . (stirling-1 x x-1) --> (x-1)x/2
+
+; Caso base [x = 1]:
+;   (stirling-1 1 0)    --> (1-1)x/2 = 0   [ok]
+
+; Ipotesi induttiva: considero x ∈ N+ e per questo valore assumo che
+;   (stirling-1 x x-1) --> (x-1)x/2
+
+; Passo induttivo: per x considerato nell'ipotesi induttiva
+;   (stirling-1 x+1 x) --> x(x+1)/2
+
+; Dimostrazione del caso base:
+;   (stirling-1 10) --> (cond ... ((=00)0) ...) --> 0
+
+; Dimostrazione del passo induttivo:
+; (stirling-1 x+1 x) ---> (cond ((= x x+1) 1) ((= x 0) 0) (else ... ))
+;                    ---> (+ (* (- x+1 1) (stirling-1 (- x+1 1) x)) (stirling-1 (- x+1 1) (- x 1)))
+;                    ---> (+ (* x (stirling-1 x x)) (stirling-1 (- x+1 1) (- x 1)))
+;                    ---> (+ (* x 1) (stirling-1 (- x+1 1) (- x 1)))
+;                    ---> (+ x (stirling-1 (- x+1 1) (- x 1)))
+;                    ---> (+ x (stirling-1 x x-1))            ; applico l'ipotesi induttiva
+;                    ---> (+ x (x-1)x/2)
+;                    ---> x + (x-1)x/2
+;                         = (2x + (x-1)x) / 2 =
+;                         = x(x+1)/2
+
+; Bisogna giustificare le strade, escluse alternative, e dire ESPLICITAMENTE
+; QUANDO SI USA L'IPOTESI INDUTTIVA***
+;
+; Rispetto all'altra fila cambia che c'è l'espressione fattoriale Vx app.a N+ (stirling-1 x 1) -> (x-1)!
+; L'ipotesi induttiva è la consegna stessa (tolgo il per ogni V)
+; --> 
+
+; ---------------------------------------------------
 
