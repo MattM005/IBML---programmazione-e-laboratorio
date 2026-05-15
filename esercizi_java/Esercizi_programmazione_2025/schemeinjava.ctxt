@@ -1,0 +1,30 @@
+#BlueJ class context
+comment0.target=schemeinjava
+comment0.text=\r\n\ da\ scheme\ in\ java\r\n
+comment1.params=k
+comment1.target=double\ s(int)
+comment1.text=\r\n\ (define\ s\ \ \ \ ;\ val\:\ misura\ (lato\ piu'\ lungo)\r\n\ \ \ \ \ \ \ \ (lambda\ (k)\ \ \ ;\ k\:\ intero\ non\ negativo\r\n\ \ \ \ \ \ \ \ \ \ \ \ ;\ (if\ (>\=\ k\ 2)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ;\ (/\ (s\ (-\ k\ 2))\ 2)\r\n\ \ \ \ \ \ \ \ \ \ \ \ ;\ (if\ (\=\ k\ \u03B8)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ;\ s\u03B8\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ;\ s1\r\n\ \ \ \ \ \ \ \ \ \ \ \ ;\ ))\r\n\ \ \ \ \ \ \ \ (cond\ ((>\=\ k\ 2)\r\n\ \ \ \ \ \ \ \ \ \ \ \ (/\ (s\ (-\ k\ 2))\ 2))\r\n\ \ \ \ \ \ \ \ \ \ \ \ ((\=\ i\ k\ \u03B8)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\u03B8\r\n\ \ \ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ \ \ \ \ (else\ ;\ (\=\ k\ 1)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s1\r\n\ \ \ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ ))\r\n\ \ \ \ \ \ )\r\n
+comment10.params=n
+comment10.target=void\ eratostene(int)
+comment10.text=\r\n\ Funziona\ come\ un\ "setaccio"\ che\ elimina\ progressivamente\ \r\n\ i\ multipli\ di\ ogni\ numero\ primo\ trovato,\ partendo\ dal\ 2,\ \r\n\ lasciando\ nella\ lista\ solo\ i\ numeri\ primi.\r\n
+comment2.params=x\ y
+comment2.target=int\ mcd(int,\ int)
+comment2.text=\r\n\ (define\ mcd\ \ \ \ ;\ val\:\ intero\r\n\ \ \ \ \ \ \ \ \ \ (lambda\ (x\ y)\ \ \ ;\ x,\ y\:\ interi\ positivi\r\n\ \ \ \ \ \ \ \ \ \ \ \ (cond\ ((\=\ x\ y)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x)\r\n\ \ \ \ \ \ \ \ \ \ \ \ ((<\ x\ y)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (mcd\ x\ (-\ y\ x))))\r\n\ \ \ \ \ \ \ \ \ \ \ \ (else\ \ \ \ ;\ x\ >\ y\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (mcd\ (-\ x\ y)\ y))\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ \ \ \ \ ))\r\n\ \ \ \ \ \ \ \ ))\r\n
+comment3.params=x\ y
+comment3.target=int\ mcd2(int,\ int)
+comment4.params=n
+comment4.target=boolean\ primo(int)
+comment4.text=\r\n\ (define\ primo?\ ;\ val\:\ boolean\r\n\ \ \ \ \ \ \ \ \ \ (lambda\ (n)\ ;\ n\ \u2265\ 2\ intero\r\n\ \ \ \ \ \ \ \ \ \ \ \ (if\ (even?\ n)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\=\ n\ 2)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (non-ci-sono-divisori-dispari?\ n\ 3\ (sqrt\ n))\ ;\ (floor\ (sqrt\ n))\r\n\ \ \ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ (define\ non-ci-sono-divisori-dispari?\ ;\ val\:\ boolean\r\n\ \ \ \ \ \ \ \ \ \ (lambda\ (n\ inf\ sup)\ ;\ n\ \u2265\ 2\ intero;\ inf,\ sup\:\ interi\r\n\ \ \ \ \ \ \ \ \ \ \ \ (cond\ ((>\ inf\ sup)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ true)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\=\ (remainder\ n\ inf)\ 0)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ false)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (else\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (non-ci-sono-divisori-dispari?\ n\ (+\ inf\ 2)\ (-\ n\ 1)))\r\n\ \ \ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ (define\ lista-primi\ ...\ )\r\n
+comment5.params=soglia
+comment5.target=void\ listaPrimi(int)
+comment6.params=btr
+comment6.target=int\ btrVal(java.lang.String)
+comment6.text=\r\n\ (define\ btr-val\ \ \ ;\ btr-val\:\ intero\r\n\ \ \ \ \ \ \ \ \ \ (lambda\ (btr)\ \ \ ;\ btr\:\ stringa\r\n\ \ \ \ \ \ \ \ \ \ \ \ (let\ ((k\ (-\ (string-length\ btr)\ 1)))\ ;\ indice\ dell\u2019ultima\ cifra\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ (if\ (\=\ k\ 0)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (btd-val\ btr)\ ;\ caso\ base\:\ 1\ cifra\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (+\ (*\ 3\ (btr-val\ (substring\ btr\ 0\ k)))\ \ ;\ valore\ parte\ sx\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (btd-val\ (substring\ btr\ k\ (string-length\ btr)))\ ;\ ultima\ cifra\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ \ ))\r\n\ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ ;\ converte\ una\ singola\ cifra\ bilanciata\ in\ intero\r\n\ \ \ \ \ \ \ \ (define\ btd-val\ \r\n\ \ \ \ \ \ \ \ \ \ (lambda\ (btd)\r\n\ \ \ \ \ \ \ \ \ \ \ \ (cond\ ((string\=?\ btd\ "-")\ -1)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((string\=?\ btd\ ".")\ 0)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((string\=?\ btd\ "+")\ 1)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ )\r\n\ \ \ \ \ \ \ \ \ \ ))\r\n\r\n
+comment7.params=btd
+comment7.target=int\ btdVal(char)
+comment8.params=x
+comment8.target=int\ ufo(int)
+comment8.text=\r\n\ \ \ \ \ (define\ ufo\ \ \ \ \ \ \ \ \ \ \ \ ;\ valore\:\ ?\r\n\ \ \ \ \ \ \ \ \ (lambda\ (x)\ \ \ \ \ \ \ \ \ \ ;\ x\ >\ 0\ naturale\r\n\ \ \ \ \ \ \ \ \ \ \ (cond\ ((\=\ x\ 1)\ 1)\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ ((even?\ x)\ \ \ ;\ x\ pari\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ (-\ (*\ 2\ (ufo\ (quotient\ x\ 2)))\ 1))\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ (else\ \ \ \ \ \ \ \ ;\ x\ dispari\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ (+\ (*\ 2\ (ufo\ (quotient\ x\ 2)))\ 1))\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ )))\r\n
+comment9.params=x
+comment9.target=int\ ufo2(int)
+numComments=11

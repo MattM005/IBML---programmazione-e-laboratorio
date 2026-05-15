@@ -2,5 +2,13 @@
 comment0.target=esempio3
 comment0.text=\r\n\ Esempio3\:\ femminile\ di\ un\ sostantivo\r\n
 comment1.params=s
-comment1.target=boolean\ femminile(java.lang.String)
-numComments=2
+comment1.target=java.lang.String\ plurale(java.lang.String)
+comment2.params=s
+comment2.target=boolean\ femminile(java.lang.String)
+comment3.params=sm
+comment3.target=java.lang.String\ pluraleSm(java.lang.String)
+comment4.params=sm
+comment4.target=java.lang.String\ pluraleSf(java.lang.String)
+comment5.params=s
+comment5.target=java.lang.String\ radiceSost(java.lang.String)
+numComments=6
