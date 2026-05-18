@@ -87,6 +87,52 @@ public class IntSList {
         }
     }
     
+    // public int listRef() -- es.
+    
+    public boolean equals(IntSList t) {
+        if(this.isNull() || t.isNull()) {
+            return isNull() && t.isNull();
+        } else if (this.car() == t.car()){
+            return cdr().equals(t.cdr()); 
+        } else {
+            return false;
+        }
+    }
+    
+    
+    public IntSList append(IntSList t) {
+        if(isNull()) {
+            return t;
+        } else {
+            return (cdr().append(t)).cons(car());
+        }
+    }
+    
+    /*public IntSList reverse() {
+        return reverseRec(this,NULL_INTLIST);
+    }*/
+    
+    // rovescia lista
+    public IntSList reverse(){
+        IntSList lst = this;
+        IntSList rev = NULL_INTLIST;
+        
+        while( !lst.isNull() ){
+            rev = rev.cons(lst.car());
+            lst = lst.cdr();
+        }
+        
+        return rev;
+    }
+    
+    public static IntSList reverseRec(IntSList s, IntSList t) {
+        if(s.isNull()){
+            return t;
+        } else {
+            return reverseRec(s.cdr(), t.cons(s.car()));
+        }
+    }
+    
     public String toString() {
         if(isNull() ) {
             return "()";

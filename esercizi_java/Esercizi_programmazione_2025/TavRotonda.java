@@ -72,6 +72,7 @@ public class TavRotonda {
     }
 }
 
+
 /*public class TavRotonda {
     
     private static final SList<Integer> NULL_INTLIST = new SList<Integer>(); // lista vuota è unica (1)
