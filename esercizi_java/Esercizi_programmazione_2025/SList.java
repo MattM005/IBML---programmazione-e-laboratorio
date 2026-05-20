@@ -1,4 +1,3 @@
-
 /**
  * IntSList: liste di interi nello stile di Scheme
  * 
@@ -22,7 +21,6 @@
 import java.util.function.*;  // prendo tutte le classi della libreria.
 
 public class SList<T> {
-    
     // creazione di una lista
     public static final SList NULL_INTLIST = new SList();
     
@@ -51,27 +49,22 @@ public class SList<T> {
     **/
     
     public boolean isNull() {
-        
         return empty;        
     }
     
     public T car() {
-
         return first;
     }
     
     public SList<T> cdr() {
-        
         return rest;    
     }
     
     public SList<T> cons( T e ) {
-        
         return new SList<T>( e, this );
     }
     
     public boolean equals( SList t ) {
-        
         SList <T> s = this; 
         SList <T> r = t; 
         while ( !s.isNull() && !r.isNull() ) {
@@ -86,14 +79,12 @@ public class SList<T> {
     }
     
     public int length() {
-        
         int len = 0;
         SList <T> r = this;
         while ( !r.isNull() ) {
             len = len + 1;
             r = r.cdr();
         }
-        
         return len;
     }
     
@@ -103,9 +94,7 @@ public class SList<T> {
      *  esercizio: listRef(...)  // es.
      * 
     **/
-    
     public SList<T> append( SList<T> t ) {
-        
         if ( isNull() ) {
             return t;
         } else {
@@ -113,23 +102,19 @@ public class SList<T> {
         }
     }
     
-    
     public SList<T> reverse () {
-       
         SList<T> rev = new SList<T>();
         SList<T> s = this;
         while ( !s.isNull() ) {
             rev = rev.cons( s.car() );
             s = s.cdr();
         }
-        
         return rev;  
     }
     
     // applico f a tutti gli elementi della lista destinatario di tipo "t". 
     public SList<Object> map( Function<T,Object> f ) {  // f : T -> Object
         // con tipo "object" siamo molto generali sul tipo.
-        
         if ( isNull() ) {
             return new SList<Object>();
         } else {
@@ -139,14 +124,13 @@ public class SList<T> {
     
     // ...ogni iterazione è il cdr del cdr precedente...
     public String toString() {
-        
         if ( isNull() ) {   // this.isNull() è uguale   
             return "()";
         } else {
             String s = " ( " + car();
             SList<T> r = cdr();
             while ( !r.isNull() ) {
-                s = s + "" + r.car();
+                s = s + " " + r.car();
                 r = r.cdr();
             }
             return s + " ) ";

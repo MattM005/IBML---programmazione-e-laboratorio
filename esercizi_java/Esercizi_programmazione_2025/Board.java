@@ -23,87 +23,53 @@ public class Board {
     
     private static final String ROWS = "123456789ABCDEF";
     private static final String COLS = "abcdefghilmno";
-
-    private final int n;
-    private int q;
-    private String config;
-
-    private int[] rowAttack;
-    private int[] colAttack;
-    private int[] dg1Attack;
-    private int[] dg2Attack;
     
-    public Board(int n) {
-        
-        this.n = n; 
-        this.q = 0; 
-        // attack = (x,y) -> false;   // (lambda ( x y ) false) x,y è minacciato oppure no? -> bu -> false
-        this.config = " ";
-        
-        rowAttack = new int[n];
-        colAttack = new int[n];
-        dg1Attack = new int[ 2*n-1 ];
-        dg2Attack = new int[ 2*n-1 ];
-        
-        for(int k=0; k<n; k++) {
-            rowAttack[k] = 0;
-            colAttack[k] = 0;
-        }
-        for(int k=0; k<2*n-1; k++) {
-            dg1Attack[k] = 0;
-            dg2Attack[k] = 0;
-        }
+    private final int size;
+    private int queens; 
+    private final BiPredicate<Integer, Integer> attack;
+    // private final String config;
+    private final SList<SList<Integer>> config;
+
+    public Board(int n) {   
+       size = n;
+       queens = 0;
+       attack = (x,y) -> false;    // (lambda (x y) false)
+       // config = " ";
+       config = new SList<SList<Integer>>();
+    }
+    
+    private Board(Board b, int i, int j) {
+        size = b.size();
+        queens = b.QueensOn() + 1;
+        attack = (x,y) -> ((x == i) || (y == j) ||
+                           (x-y == i-j) || (x+y == i+j) ||
+                           b.underAttack(x,y));
+        // config = b.arrangement() + COLS.charAt(j) + ROWS.charAt(i) + " ";
+        SList<Integer> pair = (new SList<Integer>()).cons(j).cons(i);
+        config = b.arrangement().cons(pair);
     }
 
     public int size() {
-        
-        return n;
+        return size;
     }
 
     public int QueensOn() {
-        
-        return q;
+        return queens;
     }
     
     public boolean underAttack(int i, int j) {
-        return rowAttack[i] > 0 ||
-               colAttack[j] > 0 ||
-               dg1Attack[i - j + n - 1] > 0 ||
-               dg2Attack[i + j] > 0;
+        return attack.test(i,j);
     }
-
+    
+    public SList<SList<Integer>> arrangement() {
+        return config;
+    }
     
    public Board addQueen(int i, int j) {
-        Board b = new Board(n);
-        b.q = this.q + 1;
-    
-        if (j >= COLS.length() || i >= ROWS.length()) {
-            b.config = this.config + "? ";  // oppure usa (i+1),(j+1)
-        } else {
-            b.config = this.config + COLS.charAt(j) + ROWS.charAt(i) + " ";
-        }
-    
-        b.rowAttack = this.rowAttack.clone();
-        b.colAttack = this.colAttack.clone();
-        b.dg1Attack = this.dg1Attack.clone();
-        b.dg2Attack = this.dg2Attack.clone();
-    
-        b.rowAttack[i]++;
-        b.colAttack[j]++;
-        b.dg1Attack[i - j + n - 1]++;
-        b.dg2Attack[i + j]++;
-    
-        return b;
+        return new Board(this,i,j);
     }
 
-    public String arrangement() {
-        
-        return "[" + config + "]"; 
-    }
-    
     public String toString() {
-        
-        return arrangement();
-    }
-    
-} // class Board
+        return "[ " + arrangement() + " ]";
+    }    
+}

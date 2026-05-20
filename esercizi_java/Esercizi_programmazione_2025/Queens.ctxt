@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Queens
-comment0.text=\r\n\ (\ non\ ancora\ da\ compilare\ )\r\n\ \r\n\ Determinare\ n*\ soluzioni\ dato\ n\ scacchiera.\r\n\ \r\n\ Board\ b;\r\n\ int\ n,\ i,\ j;\r\n\ \r\n\ b\ \=\ new\ Board(n)\r\n\ \r\n\ b.size()\ \ \ \ \ \ \ \ \ \ \ \ \ \:\ int\r\n\ b.queensOn()\ \ \ \ \ \ \ \ \ \:\ int\r\n\ \r\n\ b.underAttack(i,j)\ \ \ \:\ Boolean\r\n\ \r\n\ b.addQueen(i,j)\ \ \ \ \ \ \:\ Board\r\n\ \r\n\ b.arrangement()\ \ \ \ \ \ \:\ String\r\n\ \r\n
+comment0.text=\r\n\ (\ non\ ancora\ da\ compilare\ )\r\n\ \r\n\ Determinare\ n*\ soluzioni\ dato\ n\ scacchiera.\r\n\ \r\n\ Board\ b;\r\n\ int\ n,\ i,\ j;\r\n\ \r\n\ b\ \=\ new\ Board(n)\r\n\ b.size()\ \ \ \ \ \ \ \ \ \ \ \ \ \:\ int\r\n\ b.queensOn()\ \ \ \ \ \ \ \ \ \:\ int\r\n\ b.underAttack(i,j)\ \ \ \:\ Boolean\r\n\ b.addQueen(i,j)\ \ \ \ \ \ \:\ Board\r\n\ b.arrangement()\ \ \ \ \ \ \:\ String\r\n\ \r\n\ \r\n\ N*\ permutazioni\ n\r\n\ 1x1\ ->\ 1\ sol\r\n\ 2x2\ ->\ no\r\n\ 3x3\ ->\ no\r\n\ 4x4\ ->\ 1/12\ di\ 24\ sol.\r\n\ 5x5\ ->\ 10\ sol\r\n\ 6x6\ ->\ 0,6%\ su\ 720\ sol.\r\n\ 9x9\ ->\ 352\ sol\r\n\ 12x12\ ->\ 14200\ sol\r\n
 comment1.params=n
 comment1.target=int\ numeroSoluzioni(int)
 comment2.params=b
