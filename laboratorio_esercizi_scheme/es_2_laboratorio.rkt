@@ -1,13 +1,21 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-advanced-reader.ss" "lang")((modname Laboratorio1Esercizio2) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #t #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname es_2_laboratorio) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #t #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
+(define croce
+  (glue-tiles
+   (glue-tiles smaller-tile (half-turn smaller-tile))
+   (glue-tiles
+    (quarter-turn-right smaller-tile)
+    (quarter-turn-left smaller-tile))
+   )
+  )
+
 
 ;; Square-Cross Puzzle
 ;; Claudio Mirolo, 6/11/2014
 
 ;; Per eseguire questo codice e' necessario
 ;; utilizzare il TeachPack "drawings.ss"
-
 
 ;; Square-Cross Puzzle
 ;;
@@ -46,14 +54,13 @@
 ;;
 ;; Quali altre figure si possono costruire?
 
-
 ;; Traslazione unitaria da utilizzare con il puzzle
 
-(set-puzzle-shift-step!)
+;(set-puzzle-shift-step!)
 
-(define croce
-(glue-tiles (glue-tiles (shift-right smaller-tile 2) larger-tile) (shift-right (shift-down (half-turn (glue-tiles (shift-right smaller-tile 2) larger-tile)) 1) 2))  )
+;(define croce
+;(glue-tiles (glue-tiles (shift-right smaller-tile 2) larger-tile) (shift-right (shift-down (half-turn (glue-tiles (shift-right smaller-tile 2) larger-tile)) 1) 2))  )
 
-(define quadrato
-  (glue-tiles (half-turn (glue-tiles larger-tile (shift-down smaller-tile 4))) (shift-down (shift-right (glue-tiles larger-tile (shift-down smaller-tile 4)) 2) 1))
-   )
+;(define quadrato
+;  (glue-tiles (half-turn (glue-tiles larger-tile (shift-down smaller-tile 4))) (shift-down (shift-right (glue-tiles larger-tile (shift-down smaller-tile 4)) 2) 1))
+;   )
