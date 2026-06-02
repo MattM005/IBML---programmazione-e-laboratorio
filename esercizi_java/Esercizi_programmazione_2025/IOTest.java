@@ -1,0 +1,82 @@
+import huffman_toolkit.*;
+
+public class IOTest {
+
+    // Duplica un file di testo carattere per carattere
+    public static int dupl(String src, String dst) {
+        InputTextFile in = new InputTextFile(src);
+        OutputTextFile out = new OutputTextFile(dst);
+        int count = 0;
+        while (in.textAvailable()) {
+            char c = in.readChar();
+            out.writeChar(c);
+            count++;
+        }
+        in.close();
+        out.close();
+        return count;
+    }
+    
+    // Calcola le frequenze di tutti i possibili caratteri (0..65535)
+    public static int[] charFreqs(String src) {
+        int[] freq = new int[InputTextFile.CHARS];
+        InputTextFile in = new InputTextFile(src);
+        while (in.textAvailable()) {
+            char c = in.readChar();
+            freq[c]++;
+        }
+        in.close();
+        return freq;
+    }
+    
+    
+    /**
+     * 
+     * 4403 bit
+     * però 629 caratteri
+     * 
+     * allora: 1 byte ha 7 bit utili e 1 bit sprecato
+     * quindi 629 * 7 = 4403 bit. 
+     * 
+     */
+    
+    /**
+     * public static int dupl(String src, String dst) {
+        InputTextFile in = new InputTextFile(src);
+        OutputTextFile out = new OutputTextFile(dst);  // corretto: usa dst
+
+        int count = 0;
+        
+        while (in.textAvailable()) {
+            char c = in.readChar();
+            out.writeChar(c);
+            count = count + 1;
+        }
+
+        in.close();
+        out.close();
+        
+        return count;
+    }
+     */
+    
+    /**
+     * public static int dupl(String src, String dst) {
+        InputTextFile in = new InputTextFile(src);
+        OutputTextFile out = new OutputTextFile(dst);  // corretto: usa dst
+
+        int count = 0;
+        
+        while (in.textAvailable()) {
+            String s = in.readTextLine();
+            out.writeTextLine(s);
+            count = count++;
+        }
+
+        in.close();
+        out.close();
+        
+        return count;
+    }
+     */
+}
