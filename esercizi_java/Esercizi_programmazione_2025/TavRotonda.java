@@ -11,6 +11,7 @@
  *    t.serve()           : TavRotonda
  *    t.passa()           : TavRotonda  
  *
+ *
  *    --------------------------
  *    CALCOLI
  *    
@@ -28,8 +29,8 @@
  */
 
 public class TavRotonda {
-    private int n; 
-    private int b;
+    private int n;        // num. cavalieri
+    private int b;        // brocca
     private int[] cav;   // cavalieri
      
     public TavRotonda(int n) {
@@ -71,6 +72,8 @@ public class TavRotonda {
         }
     }
 }
+
+
 
 
 /*public class TavRotonda {

@@ -2,6 +2,32 @@
 comment0.target=DynamicProgramming
 comment0.text=\r\n\ Aggiungi\ qui\ una\ descrizione\ della\ classe\ DynamicProgramming\r\n\ \r\n\ @author\ (il\ tuo\ nome)\ \r\n\ @version\ (un\ numero\ di\ versione\ o\ una\ data)\r\n
 comment1.params=n
-comment1.target=int\ fib(int)
-comment1.text=\r\n\ \r\n\ R(5)\ \=\ 15\r\n\ \r\n\ per\ n>1\r\n\ \r\n\ R(n)\ \=\ 1\ +\ R(n-2)\ +\ R(n-1)\r\n
-numComments=2
+comment1.target=long\ fib(int)
+comment1.text=\r\n\ \r\n\ R(5)\ \=\ 15\r\n\ \r\n\ R(100)\ \=>\ 2.7\ *\ 10^17\r\n\ \r\n\ R(n)\ \=>\ (3/2)^(n-1)\r\n\ \r\n\ R(k)\ \=>\ (3/2)^(k-1)\ \ ipotesi\ induttiva\r\n\ \r\n\ per\ n>1\:\ \r\n\ R(n)\ \=\ 1\ +\ R(n-2)\ +\ R(n-1)\r\n\ \r\n\ R(0)\ \=\ 1\ \=>\ (3/2)^(0-1)\ \=\ 2/3\r\n\ R(1)\ \=\ 1\ \=>\ (3/2)^(1-1)\ \=\ 1\r\n\ \r\n\ per\ n>1\:\ \r\n\ R(n)\ \=\ 1\ +\ R(n-2)\ +\ R(n-1)\r\n\ \ \ \ \ \ \=>\ 0\ +\ (3/2)^(n-3)\ +\ (3/2)^(n-2)\r\n\ \ \ \ \ \ \=\ (3/2)^(n-3)\ +\ (3/2)^(n-2)\ *\ ((3/2)^(-1)\ +\ 1)\r\n\ \ \ \ \ \ \=\ (3/2)^(n-2)\ *\ ((3/2)^(-1)\ +\ 1)\ \r\n\ \ \ \ \ \ \=\ (3/2)^(n-2)\ *\ (2/3\ +\ 1)\ \r\n\ \ \ \ \ \ \=\ (5/3)\ *\ (3/2)^(n-2)\ \r\n\ \ \ \ \ \ >\ (3/2)^(n-1)\r\n\ \ \ \ \ \ \r\n\ \ \ \ \ \ 5/3\ >\ 3/2\ <\=\=>\ 10>9\ \ VERO\r\n\ \ \ \ \ \ \r\n\ \ \ \ \ \ \r\n\ \ \ \ \ \ DynamicProgramming.fibMem(100)\ -->\ -1869596475\ \ (int)\r\n\ \ \ \ \ \ Va\ in\ OVERFLOW...\ \r\n\ \ \ \ \ \ L'unica\ opzione\ a\ disposizione\ nei\ tipi\ semplici\ \u00E8\ cambiare\ a\ long\ 10^18\ (x2\ dei\ byte)\r\n\ \ \ \ \ \ \r\n\ \ \ \ \ \ DynamicProgramming.fibMem(100)\ -->\ 1298777728820984005\ \ \ (long)\r\n
+comment10.params=u\ v
+comment10.target=java.lang.String\ lcsMem(java.lang.String,\ java.lang.String)
+comment11.params=u\ v\ mem
+comment11.target=java.lang.String\ lcsRec(java.lang.String,\ java.lang.String,\ java.lang.String[][])
+comment12.params=u\ v
+comment12.target=java.lang.String\ longer(java.lang.String,\ java.lang.String)
+comment13.params=u\ v
+comment13.target=int\ llcsDP(java.lang.String,\ java.lang.String)
+comment2.params=n
+comment2.target=long\ fibMem(int)
+comment3.params=n\ mem
+comment3.target=long\ fibRec(int,\ long[])
+comment4.params=i\ j
+comment4.target=long\ paths(int,\ int)
+comment4.text=\r\n\ (define\ paths\r\n\ \ \ (lambda\ (i\ j)\r\n\ \ \ \ \ (if\ (or\ (\=\ i\ 0)\ (\=\ j\ 0))\r\n\ \ \ \ \ \ \ 1\r\n\ \ \ \ \ \ \ (+\ paths\ i\ (-\ j\ 1))\ (paths\ (-\ i\ 1)\ j))\r\n\ \ \ \ \ \ \ )\r\n\ \ \ \ \ ))\r\n
+comment5.params=i\ j
+comment5.target=long\ pathsMem(int,\ int)
+comment6.params=i\ j\ mem
+comment6.target=long\ pathsRec(int,\ int,\ long[][])
+comment7.params=i\ j
+comment7.target=long\ pathsDP(int,\ int)
+comment8.params=n\ k
+comment8.target=int\ st(int,\ int)
+comment8.text=\r\n\ (define\ stirling\r\n\ \ \ \ \ \ (lambda\ (n\ k)\ \ \ ;\ n,k\:\ interi\ positivi\ t.c.\ [1<\=k<\=n]\r\n\ \ \ \ \ \ \ \ ;\ ricorsione\r\n\ \ \ \ \ \ \ \ (if\ (or\ (\=\ k\ 1)\ (\=\ k\ n))\r\n\ \ \ \ \ \ \ \ \ \ \ \ 1\r\n\ \ \ \ \ \ \ \ \ \ \ \ (+\ (stirling\ (-\ n\ 1)\ (-\ k\ 1))\ \ \ ;\ (k\ >\ 1)\ dispongo\ i\ pasticcini\ in\ tutti\ -\ quello\ del\ canestrello\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*\ k\ (stirling\ (-\ n\ 1)\ k))\ \ ;\ (k\ <\ n)\ dispongo\ l'altro,\ meno\ s\u00E9\ stesso\ in\ tutti\ gli\ altri.\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ))\r\n\ \ \ \ \ \ \ \ ))\r\n
+comment9.params=u\ v
+comment9.target=int\ llcs(java.lang.String,\ java.lang.String)
+numComments=14
