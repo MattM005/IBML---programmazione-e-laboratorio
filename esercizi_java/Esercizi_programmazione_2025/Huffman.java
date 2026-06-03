@@ -1,0 +1,84 @@
+/**
+ * Huffman
+ */
+
+import java.util.*;
+import huffman_toolkit.*;
+
+public class Huffman {   
+    public static final int CHAR_RANGE = 65536;  // tutti i possibili caratteri Unicode
+
+    // Calcola le frequenze di tutti i possibili caratteri (0..65535)
+    public static int[] charFreqs(String src) {
+        int[] freq = new int[CHAR_RANGE];
+        // Java inizializza automaticamente a 0, non serve il loop
+        
+        InputTextFile in = new InputTextFile(src);
+        while (in.textAvailable()) {
+            char c = in.readChar();
+            freq[c]++;
+        }
+        in.close();
+        return freq;
+    }
+    
+    public static Node huffmanTree(int[] freq) {
+        PriorityQueue<Node> queue = new PriorityQueue<Node>();
+        
+        for (int c = 0; c < freq.length; c++) {
+            if (freq[c] > 0) {
+                queue.add(new Node((char) c, freq[c]));
+            }
+        }
+        
+        while (queue.size() > 1) {
+            Node l = queue.poll();
+            Node r = queue.poll();
+            queue.add(new Node(l, r));
+        }
+        
+        return queue.poll();
+    }
+    
+    public static String[] codeTable(Node root) {
+        String[] tab = new String[CHAR_RANGE];
+        fillTable("", root, tab);
+        return tab;
+    }
+    
+    private static void fillTable(String p, Node n, String[] tab) {
+        if (n.isLeaf()) {
+            tab[n.symbol()] = p;
+        } else {
+            fillTable(p + "0", n.left(), tab);
+            fillTable(p + "1", n.right(), tab);
+        }
+    }
+    
+    public static void compress(String src, String dst) {
+        int[] freq = charFreqs(src);
+        Node root = huffmanTree(freq);
+        String[] tab = codeTable(root);
+        
+        InputTextFile in = new InputTextFile(src);
+        OutputTextFile out = new OutputTextFile(dst);
+        
+        while (in.textAvailable()) {
+            char c = in.readChar();
+            out.writeCode(tab[c]);  // tab[c] non sarà null perché c ha freq>0
+        }
+        
+        in.close();
+        out.close();
+    }
+    
+    /**
+     * 
+     * 
+     * Huffman.compress("Huffman.java","C.txt");
+     * 
+     * Il file con codifiche di huffman, si è ridotto del circa 30% in meno 
+     * rispetto allo spazio occupato del file di testo originale. 
+     * 
+     */
+}

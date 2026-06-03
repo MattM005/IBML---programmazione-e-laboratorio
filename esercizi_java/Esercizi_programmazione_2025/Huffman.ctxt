@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Huffman
+comment1.params=src
+comment1.target=int[]\ charFreqs(java.lang.String)
+comment2.params=freq
+comment2.target=Node\ huffmanTree(int[])
+comment3.params=root
+comment3.target=java.lang.String[]\ codeTable(Node)
+comment4.params=p\ n\ tab
+comment4.target=void\ fillTable(java.lang.String,\ Node,\ java.lang.String[])
+comment5.params=src\ dst
+comment5.target=void\ compress(java.lang.String,\ java.lang.String)
+numComments=6
