@@ -1,7 +1,8 @@
 #BlueJ package file
-dependency1.from=Test
-dependency1.to=TavRotonda
+dependency1.from=Queens
+dependency1.to=SList
 dependency1.type=UsesDependency
+<<<<<<< Updated upstream
 dependency2.from=Test2
 dependency2.to=IntSList
 dependency2.type=UsesDependency
@@ -17,10 +18,22 @@ dependency5.type=UsesDependency
 dependency6.from=Huffman
 dependency6.to=Node
 dependency6.type=UsesDependency
+=======
+dependency2.from=Queens
+dependency2.to=Board
+dependency2.type=UsesDependency
+dependency3.from=Test
+dependency3.to=TavRotonda
+dependency3.type=UsesDependency
+dependency4.from=TavRotonda
+dependency4.to=SList
+dependency4.type=UsesDependency
+>>>>>>> Stashed changes
 editor.fx.0.height=0
 editor.fx.0.width=0
 editor.fx.0.x=0
 editor.fx.0.y=0
+<<<<<<< Updated upstream
 objectbench.height=203
 objectbench.width=1207
 package.divider.horizontal=0.5999210110584519
@@ -33,6 +46,20 @@ package.frame.height=1116
 package.frame.width=2059
 package.numDependencies=6
 package.numTargets=20
+=======
+objectbench.height=180
+objectbench.width=1108
+package.divider.horizontal=0.5998201438848921
+package.divider.vertical=0.7602354145342887
+package.editor.height=588
+package.editor.width=1012
+package.editor.x=135
+package.editor.y=26
+package.frame.height=881
+package.frame.width=1148
+package.numDependencies=4
+package.numTargets=10
+>>>>>>> Stashed changes
 package.showExtends=true
 package.showUses=true
 project.charset=UTF-8
