@@ -1,11 +1,6 @@
-/**
- * 
+x/**
  * Huffman
- * 
- * guadagno spazio con la codifica HUFFMAN: CIRCA 1/3 , 30%.
- * CODIFICA <-> DECODIFICA
- * 
-**/
+ */
 
 import java.util.*;
 import huffman_toolkit.*;
@@ -151,4 +146,3 @@ public class Huffman {
             return new Node(c, 0);
         }
     }
-}

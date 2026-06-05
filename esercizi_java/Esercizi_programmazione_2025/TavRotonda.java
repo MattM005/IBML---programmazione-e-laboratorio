@@ -1,4 +1,3 @@
-
 /**
  * 
  *  TavRotonda t;
@@ -10,7 +9,6 @@
  *  
  *    t.serve()           : TavRotonda
  *    t.passa()           : TavRotonda  
- *
  *
  *    --------------------------
  *    CALCOLI
@@ -28,15 +26,9 @@
  *    
  */
 
-<<<<<<< Updated upstream
 public class TavRotonda {
-    private int n;        // num. cavalieri
-    private int b;        // brocca
-=======
-/*public class TavRotonda {
     private int n; 
     private int b;
->>>>>>> Stashed changes
     private int[] cav;   // cavalieri
      
     public TavRotonda(int n) {
@@ -78,16 +70,9 @@ public class TavRotonda {
         }
     }
 }
-*/
-
-<<<<<<< Updated upstream
-
 
 
 /*public class TavRotonda {
-=======
-public class TavRotonda {
->>>>>>> Stashed changes
     
     private static final SList<Integer> NULL_INTLIST = new SList<Integer>(); // lista vuota è unica (1)
     private final int n;
@@ -147,4 +132,4 @@ public class TavRotonda {
         }
     }
 
-} // class TavRotonda
+}*/  // class TavRotonda
