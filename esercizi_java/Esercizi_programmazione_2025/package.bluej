@@ -17,6 +17,7 @@ dependency5.type=UsesDependency
 dependency6.from=Huffman
 dependency6.to=Node
 dependency6.type=UsesDependency
+<<<<<<< Updated upstream
 editor.fx.0.height=737
 editor.fx.0.width=814
 editor.fx.0.x=360
@@ -27,12 +28,24 @@ package.divider.horizontal=0.5998201438848921
 package.divider.vertical=0.7437020810514787
 package.editor.height=536
 package.editor.width=1401
+=======
+editor.fx.0.height=954
+editor.fx.0.width=1047
+editor.fx.0.x=504
+editor.fx.0.y=75
+objectbench.height=203
+objectbench.width=1207
+package.divider.horizontal=0.5999210110584519
+package.divider.vertical=0.7928796223446106
+package.editor.height=800
+package.editor.width=1924
+>>>>>>> Stashed changes
 package.editor.x=0
 package.editor.y=0
 package.frame.height=830
 package.frame.width=1550
 package.numDependencies=6
-package.numTargets=20
+package.numTargets=21
 package.showExtends=true
 package.showUses=true
 project.charset=UTF-8
@@ -111,12 +124,16 @@ target18.width=120
 target18.x=180
 target18.y=340
 target19.height=70
-target19.name=schemeinjava
-target19.showInterface=false
-target19.type=ClassTarget
+target19.name=C2.txt
+target19.type=TextTarget
 target19.width=120
+<<<<<<< Updated upstream
 target19.x=40
 target19.y=340
+=======
+target19.x=1110
+target19.y=410
+>>>>>>> Stashed changes
 target2.height=70
 target2.name=esempio3
 target2.showInterface=false
@@ -125,12 +142,24 @@ target2.width=120
 target2.x=70
 target2.y=170
 target20.height=70
-target20.name=TavRotonda
+target20.name=schemeinjava
 target20.showInterface=false
 target20.type=ClassTarget
 target20.width=120
+<<<<<<< Updated upstream
 target20.x=380
 target20.y=380
+=======
+target20.x=70
+target20.y=250
+target21.height=70
+target21.name=TavRotonda
+target21.showInterface=false
+target21.type=ClassTarget
+target21.width=120
+target21.x=790
+target21.y=10
+>>>>>>> Stashed changes
 target3.height=70
 target3.name=LisDP
 target3.showInterface=false
@@ -142,8 +171,8 @@ target4.height=70
 target4.name=C.txt
 target4.type=TextTarget
 target4.width=120
-target4.x=970
-target4.y=420
+target4.x=1100
+target4.y=330
 target5.height=70
 target5.name=esempio2
 target5.showInterface=false

@@ -55,13 +55,15 @@ public class Huffman {
         }
     }
     
-    public static void compress(String src, String dst) {
+    public static Node compress(String src, String dst) {
         int[] freq = charFreqs(src);
         Node root = huffmanTree(freq);
         String[] tab = codeTable(root);
         
         InputTextFile in = new InputTextFile(src);
         OutputTextFile out = new OutputTextFile(dst);
+        
+        out.writeTextLine("" + root.weight());
         
         while (in.textAvailable()) {
             char c = in.readChar();
@@ -70,9 +72,11 @@ public class Huffman {
         
         in.close();
         out.close();
+        
+        return root;
     }
-    
-    /**
+
+      /**
      * 
      * 
      * Huffman.compress("Huffman.java","C.txt");
@@ -81,4 +85,34 @@ public class Huffman {
      * rispetto allo spazio occupato del file di testo originale. 
      * 
      */
+    
+    public static void decode(Node root, String src, String dst) {
+        InputTextFile in = new InputTextFile(src);
+        OutputTextFile out = new OutputTextFile(dst);
+        
+        int count = Integer.parseInt(in.readTextLine());
+        
+        for(int i=0; i<count; i++) {
+            char c = restoreNextChar(root, in);
+            out.writeChar(c);
+        }
+        
+        in.close();
+        out.close();
+    }
+    
+    public static char restoreNextChar(Node root, InputTextFile in) {
+        Node n = root; 
+        
+        do {
+            int bit = in.readBit();
+            if(bit == 0) {  // sx
+                n = n.left();
+            } else {        // dx
+                n = n.right();
+            }  
+        } while(!n.isLeaf());
+        
+        return n.symbol();
+    }
 }
