@@ -1,0 +1,20 @@
+
+import huffman_toolkit.*;
+
+/**
+ * test per huffman e diff file 1 e decompr. 
+ * 
+ */
+
+public class TestHf {
+    public static void main(String[] args) {
+        String file;
+        if(args.length != 1) {
+            System.out.println("num. sbagliato"); 
+            System.exit(0);
+        } 
+        file = args[0];
+        Huffman.compress(file, file+"Compressed");
+        Huffman.decode(file+"compressed", file+"decompressed");
+    }
+}

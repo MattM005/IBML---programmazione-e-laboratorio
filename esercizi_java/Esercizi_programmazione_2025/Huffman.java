@@ -5,6 +5,9 @@
  * guadagno spazio con la codifica HUFFMAN: CIRCA 1/3 , 30%.
  * CODIFICA <-> DECODIFICA
  * 
+ * se comprimo un file già compresso?
+ * posso comprimerlo e decomprimerlo n volte.
+ * 
 **/
 
 import java.util.*;
@@ -60,18 +63,45 @@ public class Huffman {
         }
     }
     
+    // classe aggiunta pr.lab.ddm
     public static String sequentializedTree(Node n) {
+        Stack<Node> s = new Stack<Node>();
+        s.push(n);
+        String out = "";
+        Node node;
+        
+        while(!s.empty()) {
+            node = s.pop(); 
+            if(node.isLeaf()) {
+                char c = node.symbol(); 
+                
+                if((c=='@') || (c=='\\')) {
+                    out = out + "\\" + c; 
+                } else {
+                    out = out + c;    
+                }
+            } else {
+                out = out + "@";
+                s.push(node.right());
+                s.push(node.left());
+            }
+        }
+        
+        return out; 
+    }
+    
+    /*public static String sequentializedTree(Node n) {
         if(n.isLeaf()) {
             char c = n.symbol();
             if((c=='@') || (c=='\\')) {
                 return "\\" + c;
             } else {
-                return "" + c;   // char->string
+                return "" + c;   
             }
         } else {
             return "@" + sequentializedTree(n.left()) + sequentializedTree(n.right());
         }
-    }
+    }*/
     // Huffman.compress("Huffman.java", "C.txt")
     // tante "@" quanti sono i nodi intermedi e sottoalberi
     
