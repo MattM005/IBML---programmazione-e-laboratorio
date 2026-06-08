@@ -1,5 +1,5 @@
 
-import huffman_toolkit.*;
+himport huffman_toolkit.*;
 
 /**
  * test per huffman e diff file 1 e decompr. 
@@ -20,4 +20,3 @@ public class TestHf {
         Huffman.compress(file, file + "Compressed");
         Huffman.decode(file + "Compressed", file + "Decompressed");
     }
-}

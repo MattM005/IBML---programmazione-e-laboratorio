@@ -50,7 +50,24 @@ public class Huffman {
     
     public static String[] codeTable(Node root) {
         String[] tab = new String[CHAR_RANGE];
-        fillTable("", root, tab);
+        
+        Stack<Coppia> s = new Stack<Coppia>(); 
+        s.push(new Coppia("",root));
+        
+        while(!s.empty()) {
+            Coppia c = s.pop();
+            String p = c.path;
+            Node n = c.node;
+            
+            if (n.isLeaf()) {
+                tab[n.symbol()] = p;
+            } else {
+                s.push(new Coppia(p + "0", n.left()));
+                s.push(new Coppia(p + "1", n.right()));
+            }
+        }
+        
+        // fillTable("", root, tab);
         return tab;
     }
     
