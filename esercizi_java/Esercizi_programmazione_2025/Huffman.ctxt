@@ -12,7 +12,6 @@ comment5.params=n
 comment5.target=java.lang.String\ sequentializedTree(Node)
 comment6.params=src\ dst
 comment6.target=void\ compress(java.lang.String,\ java.lang.String)
-comment6.text=public\ static\ String\ sequentializedTree(Node\ n)\ {\r\n\ \ \ \ \ \ \ \ if(n.isLeaf())\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ char\ c\ \=\ n.symbol();\r\n\ \ \ \ \ \ \ \ \ \ \ \ if((c\=\='@')\ ||\ (c\=\='\\\\'))\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ "\\\\"\ +\ c;\r\n\ \ \ \ \ \ \ \ \ \ \ \ }\ else\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ ""\ +\ c;\ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ }\ else\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ return\ "@"\ +\ sequentializedTree(n.left())\ +\ sequentializedTree(n.right());\r\n\ \ \ \ \ \ \ \ }\r\n}
 comment7.params=src\ dst
 comment7.target=void\ decode(java.lang.String,\ java.lang.String)
 comment7.text=\r\n\ \r\n\ \r\n\ Huffman.compress("Huffman.java","C.txt");\r\n\ \r\n\ Il\ file\ con\ codifiche\ di\ huffman,\ si\ \u00E8\ ridotto\ del\ circa\ 30%\ in\ meno\ \r\n\ rispetto\ allo\ spazio\ occupato\ del\ file\ di\ testo\ originale.\ \r\n\ \r\n
