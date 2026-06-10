@@ -4,4 +4,7 @@ comment1.params=src\ dst
 comment1.target=int\ dupl(java.lang.String,\ java.lang.String)
 comment2.params=src
 comment2.target=int[]\ charFreqs(java.lang.String)
-numComments=3
+comment3.params=seq\ tau
+comment3.target=boolean\ isPeriodic(double[],\ int)
+comment3.text=\r\n\ public\ static\ int\ dupl(String\ src,\ String\ dst)\ {\r\n\ \ \ \ \ \ \ \ InputTextFile\ in\ \=\ new\ InputTextFile(src);\r\n\ \ \ \ \ \ \ \ OutputTextFile\ out\ \=\ new\ OutputTextFile(dst);\ \ //\ corretto\:\ usa\ dst\r\n\r\n\ \ \ \ \ \ \ \ int\ count\ \=\ 0;\r\n\ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ while\ (in.textAvailable())\ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ String\ s\ \=\ in.readTextLine();\r\n\ \ \ \ \ \ \ \ \ \ \ \ out.writeTextLine(s);\r\n\ \ \ \ \ \ \ \ \ \ \ \ count\ \=\ count++;\r\n\ \ \ \ \ \ \ \ }\r\n\r\n\ \ \ \ \ \ \ \ in.close();\r\n\ \ \ \ \ \ \ \ out.close();\r\n\ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ return\ count;\r\n\ \ \ \ }\r\n
+numComments=4

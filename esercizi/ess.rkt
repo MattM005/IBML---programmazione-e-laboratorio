@@ -33,12 +33,12 @@
 (define plurale
   (lambda (sm)
     (string-append (sost-m sm) "i")
- ))
+    ))
 
 (define sost-m
   (lambda (s)
     (substring s 0 (-(string-length s) 1))
- ))
+    ))
 
 
 
@@ -49,7 +49,7 @@
      (substring s (- (string-length s) 1))
      "a"
      )
- ))
+    ))
 
 
 ; programma per complemento-a-uno
@@ -59,21 +59,21 @@
     (if (string=? bit "0")
         "1"
         "0"
-      )
-  ))
+        )
+    ))
 
 (define compl-uno
   (lambda (seq)
     (if (> (string-length seq) 1)
         ;caso ricorsivo
         (string-append
-          (compl (substring seq 0 1)) ; prende il primo bit "1011" -> "1"
-          (compl-uno (substring seq 1)) ; prende tutto il resto "1011" -> "011"
+         (compl (substring seq 0 1)) ; prende il primo bit "1011" -> "1"
+         (compl-uno (substring seq 1)) ; prende tutto il resto "1011" -> "011"
          )
         ;caso base
         (compl seq)
-     )
- ))
+        )
+    ))
 
 
 
@@ -98,11 +98,11 @@
         s  ; caso base
         ; caso ricorsivo ==> abcd => a+bcd => ... => d
         (string-append
-          (s-rev (substring s 1)) ;(delega) inverte parte restante stringa
-          (substring s 0 1)       ; primo carattere alla fine
+         (s-rev (substring s 1)) ;(delega) inverte parte restante stringa
+         (substring s 0 1)       ; primo carattere alla fine
          )
-     )
- ))
+        )
+    ))
 
 
 ; costruisca una funzione ricorsiva che, conoscendo le dimensioni base di A0 e A1,
@@ -116,10 +116,10 @@
         (if (= k 0)
             s0
             s1
-         )
+            )
         (/ (formato (- k 2)) 2)
-    )
-))
+        )
+    ))
 
 
 ; valore da binario a decimale (base 2 -> base 10)
@@ -132,18 +132,18 @@
           (bit-val (string-ref bin k))
           (+ (* 2 (bin-val (substring bin 0 k))) ; rosso
              (bit-val (string-ref bin k))  ; verde
-           ) 
-       )
-     )
- ))
+             ) 
+          )
+      )
+    ))
 
 (define bit-val
   (lambda (bit) ; bit: carattere #\0, #\1
     (if (char=? bit #\0)
         0
         1
-     )
- ))
+        )
+    ))
 
 
 
@@ -155,24 +155,24 @@
     (let (
           (q (quotient n 2))    ; 46 e non 46,5 (divisione intera)
           (r (remainder n 2))  ; resto della divisione per 2
-         )
+          )
       (if (= q 0)  ; r >= 1:vuol dire che non c'è niente davanti l'ultima cifra
           (bit-rep r)
           (string-append  ; dal valore alla stringa
-            (bin-rep q)
-            (bin-rep r)
+           (bin-rep q)
+           (bin-rep r)
            )
-        )
-     )
- ))
+          )
+      )
+    ))
 
 (define bit-rep  ; val: stringa "0" oppure "1" (resto divisione per 2 = 0)
   (lambda (v)    ; v: 0 oppure 1
     (if (= v 0)
         "0"
         "1"
-      )
-  ))
+        )
+    ))
 
 
 
@@ -190,32 +190,32 @@ Caso finale: altrimenti restituisce #f.
   (lambda (s)
     (let ((n (string-length s)))
       (cond ((<= n 1)
-            #true )
-           ((char=? (string-ref s 0) (string-ref s (- n 1)))  ; "prima e ultima posizione (estremi) della stringa"
+             #true )
+            ((char=? (string-ref s 0) (string-ref s (- n 1)))  ; "prima e ultima posizione (estremi) della stringa"
              (palind (substring s 1 (- n 1)))  ; "parte centrale (centrali) della stringa"
+             )
+            (else #false)
             )
-           (else #false)
-       )
-     )
-  ))
+      )
+    ))
 
 
 ; esercizio inverso da numero a binario con bin-rep:
 (define num-rep  ; val: stringa di 0/1
   (lambda (n b)  ; n: intero positivo, b: base (2–16)
     (let (
-           (q (quotient n b))     ;n di volte di un N in N (quoziente)
-           (r (remainder n b))    ;resto r dopo la divisione (resto)
+          (q (quotient n b))     ;n di volte di un N in N (quoziente)
+          (r (remainder n b))    ;resto r dopo la divisione (resto)
           )
       (if (= q 0)
           (dgt-rep r)     ; casi base
           (string-append
-            (num-rep q b)
-            (dgt-rep r)
+           (num-rep q b)
+           (dgt-rep r)
            )
-       )
-     )
-  ))
+          )
+      )
+    ))
 
 ; trasforma in un numero in una stringa di 1 cifra.
 (define dgt-rep
@@ -225,8 +225,8 @@ Caso finale: altrimenti restituisce #f.
       (else
        (string (integer->char (+ ascii-A (- v 10))))  ; A–F (10-16)
        )
-     )
-  )) 
+      )
+    )) 
 
 (define ascii-0 (char->integer #\0))   ; 0->48 in ascii
 (define ascii-A (char->integer #\A))   ; base 2 < b < 16
@@ -245,10 +245,10 @@ Caso finale: altrimenti restituisce #f.
           (btd-val btr) ; caso base: 1 cifra
           (+ (* 3 (btr-val (substring btr 0 k)))  ; valore parte sx
              (btd-val (substring btr k (string-length btr))) ; ultima cifra
-           )
-        )
-     )
- ))
+             )
+          )
+      )
+    ))
 
 ; converte una singola cifra bilanciata in intero
 (define btd-val ; val: [-1,0,+1]
@@ -256,8 +256,8 @@ Caso finale: altrimenti restituisce #f.
     (cond ((string=? btd "-") -1)
           ((string=? btd ".") 0)
           ((string=? btd "+") 1)
-     )
-  ))
+          )
+    ))
 
 
 ; Bilancia ternaria al "contrario"
@@ -275,17 +275,17 @@ Caso finale: altrimenti restituisce #f.
               )
           (cond
             ((= r -2)  ; n = 3(q-1) + 1
-              (string-append (btr-rep (- q 1)) (btd-rep 1))
+             (string-append (btr-rep (- q 1)) (btd-rep 1))
              )
             ((= r +2)  ; n = 3(q+1) - 1
-              (string-append (btr-rep (+ q 1)) (btd-rep -1))
+             (string-append (btr-rep (+ q 1)) (btd-rep -1))
              )
             (else
              (string-append (btr-rep q) (btd-rep r)))
             )
-         )
-      )
-  ))
+          )
+        )
+    ))
 
 (define btd-rep  ; val: "-", ".", "+"  :   converte una cifra bilanciata in simbolo
   (lambda (v)    ; v: -1,0,1
@@ -293,8 +293,8 @@ Caso finale: altrimenti restituisce #f.
       ((= v -1) "-")
       ((= v 0) ".")
       ((= v 1) "+")
-     )
-  ))
+      )
+    ))
 
 
 ; vie manhattan --> paths(i,j-1) --> prima dx, poi giù.
@@ -304,25 +304,25 @@ Caso finale: altrimenti restituisce #f.
       ((= i 0) 1)      ; caso base 1: --> percorsi orizzontali ==> j passi
       ((= j 0) 1)      ; caso base 2: --> percorsi verticali ==> i passi
       (else
-        (+ (vie-manhattan (- i 1) j)   ; (...) paths verso il basso 
-           (vie-manhattan i (- j 1))   ; (...) paths verso destra
-         )
+       (+ (vie-manhattan (- i 1) j)   ; (...) paths verso il basso 
+          (vie-manhattan i (- j 1))   ; (...) paths verso destra
+          )
        )
-    )
- ))
+      )
+    ))
 
 ; Problema Tassellazione 1 (cordolo lunghezza n=12 ==> 233 soluzioni)
 (define tass-qr  ; val: intero
   (lambda (n)    ; n: intero+
     (cond ((= n 1)
-            1)
+           1)
           ((= n 2)
-            2)
+           2)
           (else  ; n > 2
-            (+ (tass-qr (- n 1)) (tass-qr (- n 2)))
+           (+ (tass-qr (- n 1)) (tass-qr (- n 2)))
            )
-     )
-  ))
+          )
+    ))
 
 ; Problema della Tassellazione 2 (n=12 ==> 377)
 (define tass-br  ; val: intero
@@ -331,10 +331,10 @@ Caso finale: altrimenti restituisce #f.
           ((= n 2) 3)
           ; 2,3,...,x  --> n=3==>5, n=6==> 21, se n=12 ==> 377
           (else  ; n > 2
-            (+ (tass-qr (- n 1)) (tass-qr (- n 2)))   ; quadrata a sinistra / rettangolare a sinistra
+           (+ (tass-qr (- n 1)) (tass-qr (- n 2)))   ; quadrata a sinistra / rettangolare a sinistra
            )
-      )
-  ))
+          )
+    ))
 
 ; Programma per verificare se n è positivo o no.
 (define verificaValAssoluto
@@ -342,8 +342,8 @@ Caso finale: altrimenti restituisce #f.
     (if (= (abs n) n)
         true
         false
-     )
-  ))
+        )
+    ))
 
 
 ; Problema di Manhattan (i,j-1) o (i-1, j)  ---- Ricorsione ad Albero != Ricorsione di coda
@@ -354,8 +354,8 @@ Caso finale: altrimenti restituisce #f.
         1
         ;else
         (+ (paths i (- j 1)) (paths (- i 1) j)) ; i,j>0
-     )
- ))
+        )
+    ))
 
 
 ; 1 IMPLEMENTAZIONE
@@ -387,8 +387,8 @@ Caso finale: altrimenti restituisce #f.
           (es-simileManhattan W (- H 2))       ; Movimento: Giù di 2
           )
        )
-     )
-  ))
+      )
+    ))
 
 
 ; Numeri di Stirling del II tipo  (pasticcini sui piatti -- 6 pasticcini su 3 piatti)
@@ -398,8 +398,8 @@ Caso finale: altrimenti restituisce #f.
         1
         ;   15 + (3 * 25) = 90 modi per 6 pasticcini in 3 piatti
         (+ (stirling (- n 1)(- k 1)) (* k (stirling (- n 1) k)))
-     )
- ))
+        )
+    ))
 
 
 
@@ -423,13 +423,13 @@ Caso finale: altrimenti restituisce #f.
            (+ 1 (llcs1 (substring u 1) (substring v 1)))
            )
           (else
-            (max
-              (llcs1 (substring u 1) v)
-              (llcs1 u (substring v 1))
-             )
+           (max
+            (llcs1 (substring u 1) v)
+            (llcs1 u (substring v 1))
+            )
            )
-      )
- ))
+          )
+    ))
 
 ; versione 2 - finale
 (define llcs2       ; val: stringa
@@ -438,35 +438,35 @@ Caso finale: altrimenti restituisce #f.
            ""
            )
           ((char=? (string-ref u 0) (string-ref v 0))  ; 1 carattere per entrambe
-            (string-append (substring u 0 1)
-                           (llcs1 (substring u 1) (substring v 1))
-             )
+           (string-append (substring u 0 1)
+                          (llcs1 (substring u 1) (substring v 1))
+                          )
            )
           (else
-            (longer
-              (llcs1 (substring u 1) v)
-              (llcs1 u (substring v 1))
-             )
+           (longer
+            (llcs1 (substring u 1) v)
+            (llcs1 u (substring v 1))
+            )
            )
-      )
- ))
+          )
+    ))
 
 (define longer
   (lambda (u v)  ; stringhe
     (cond ((> (string-length u) (string-length v))
-            u
+           u
            )
           ((< (string-length u) (string-length v))
-            v
+           v
            )
           ((= (random 2) 0)  ; testa o croce (non deterministico)
-            v
+           v
            )
           (else
-            u
+           u
            )
-     )
- ))
+          )
+    ))
 ; oppure
 (define longer2
   (lambda (u v)
@@ -481,9 +481,9 @@ Caso finale: altrimenti restituisce #f.
              v)
             (else
              u)
-       )
-    )
- ))
+            )
+      )
+    ))
     
 
 
@@ -538,8 +538,8 @@ Caso finale: altrimenti restituisce #f.
     (if (= i 0)
         (car s)
         (lista-ref (cdr s) (- i 1))
-     )
- ))
+        )
+    ))
 
 
 ;; length --> es(lunghezza)
@@ -553,8 +553,8 @@ Caso finale: altrimenti restituisce #f.
     (if (null? s)
         t
         (cons (car s) (giustapponi (cdr s) t))
-     )
- ))
+        )
+    ))
 
 ; append != cons
 ; la differenza fondamentale sta in 2 osservazioni:
@@ -572,22 +572,22 @@ Caso finale: altrimenti restituisce #f.
     (if (null? s)
         null
         (append (rovescia-1 (cdr s)) (list (car s)))
-     )
- ))
+        )
+    ))
 
 ;; reverse ricorsivo
 (define rovescia-list
   (lambda (s)
     (rovescia-rec s '())
- ))
+    ))
 
 (define rovescia-rec
   (lambda (s t)
     (if (null? s)
         t
         (rovescia-rec (cdr s) (cons (car s) t))
-     )
- ))
+        )
+    ))
 
 ; riempio s
 ; (1 2 3 4 5) ()
@@ -619,44 +619,44 @@ Caso finale: altrimenti restituisce #f.
 (define lcs+         ; val: lista di terne <stringa, indice1, indice2>
   (lambda (u v)      ; u,v: stringhe
     (lcs-rec u 0 v 0)
- ))
+    ))
 
 (define lcs-rec      ; val: lista di terne <stringa, indice1, indice2>
   (lambda (u i v j)
     (cond ((or (string=? u "") (string=? v ""))                ; entrambe vuote
-            null
-          )
+           null
+           )
           ((char=? (string-ref u 0) (string-ref v 0))          ; 1* carattere uguale per entrambe
            ; aggiungo 
            (cons (list (substring u 0 1) i j)         ; (list "b" 2 0)
-                       (lcs-rec (substring u 1) (+ i 1) (substring v 1) (+ j 1))
-            )
-          )
+                 (lcs-rec (substring u 1) (+ i 1) (substring v 1) (+ j 1))
+                 )
+           )
           (else
            (longer+                                             ; altrimenti iniziano con caratteri
-                    (lcs-rec (substring u 1) (+ i 1) v j)            ; diversi e prendo la più lunga comune.
-                    (lcs-rec u i (substring v 1) (+ j 1))
+            (lcs-rec (substring u 1) (+ i 1) v j)            ; diversi e prendo la più lunga comune.
+            (lcs-rec u i (substring v 1) (+ j 1))
             )
            )
-      )
-  ))
+          )
+    ))
 
 (define longer+  ; val: lista di terne
   (lambda (u v)  ; u,v: lista di terne
     (let ((m (length u))
           (n (length v))
           )
-         (cond ((< m n)
-                v)
-               ((> m n)
-                u)
-               ((= (random 2) 0)
-                v)
-               (else
-                u)
-          )
-     )
-  ))
+      (cond ((< m n)
+             v)
+            ((> m n)
+             u)
+            ((= (random 2) 0)
+             v)
+            (else
+             u)
+            )
+      )
+    ))
 
 
 
@@ -669,22 +669,22 @@ Caso finale: altrimenti restituisce #f.
 (define all-lcs                                         ; val: lista di stringhe
   (lambda (u v)                                         ; u,v: stringhe
     (cond ((or (string=? u "") (string=? v ""))         ; caso base: entrambe vuote
-            (list "")
-          )
+           (list "")
+           )
           ((char=? (string-ref u 0) (string-ref v 0))   ; 1* carattere uguale per entrambe
            ; aggiungo 
            (all-prefix (substring u 0 1)                ; (list "b" 2 0)
                        (all-lcs (substring u 1) (substring v 1))
-            )
+                       )
            )
           (else
            (all-longer                                  ; altrimenti iniziano con caratteri
-                    (all-lcs (substring u 1) v)         ; diversi e prendo la più lunga comune.
-                    (all-lcs u (substring v 1))
+            (all-lcs (substring u 1) v)         ; diversi e prendo la più lunga comune.
+            (all-lcs u (substring v 1))
             )
            )
-      )
- ))
+          )
+    ))
 
 (define all-prefix  ; val: lista di stringhe
   (lambda (p s)     ; p: stringa, s: lista di stringhe
@@ -692,9 +692,9 @@ Caso finale: altrimenti restituisce #f.
         null
         (cons (string-append p (car s))
               (all-prefix p (cdr s))
-         )
-     )
- ))
+              )
+        )
+    ))
 
 ; definisco all-longer a partire da longer
 (define all-longer    ; val: lista di stringhe
@@ -709,9 +709,9 @@ Caso finale: altrimenti restituisce #f.
             (else
              (append s t)
              )
-         )
-     )  
- ))
+            )
+      )  
+    ))
 
 
 
@@ -723,7 +723,7 @@ Caso finale: altrimenti restituisce #f.
     (not (divisori-in? n 2 (- n 1)))
     ; se non ha divisori, allora è primo.
     ; se il secondo estremo sx < estremo dx allora Int.=vuoto
-  ))
+    ))
 
 (define divisori-in?  ; val: booleano
   (lambda (n a b)     ; n, a, b: interi positivi
@@ -734,8 +734,8 @@ Caso finale: altrimenti restituisce #f.
           (else
            (divisori-in? n (+ a 1) b)   ; int. più piccolo
            )
-      )
-   ))
+          )
+    ))
 
 
 
@@ -743,13 +743,13 @@ Caso finale: altrimenti restituisce #f.
 (define molt-russa  ; intero
   (lambda (m n)     ; m, n: interi positivi
     (cond ((= n 0)
-          0)
+           0)
           ((even? n)
            (molt-russa (* 2 m) (quotient n 2))) ; 2m * n/2 = m*n
           (else
            (+ m (molt-russa (* 2 m) (quotient n 2)))) ; 2m * (n-1)/2 = m*(n-1) = m*n-m
-     )
-  ))
+          )
+    ))
 
 
 ;; Moltiplicazione del contadino russo
@@ -763,14 +763,14 @@ Caso finale: altrimenti restituisce #f.
 (define molt-rec    ; intero
   (lambda (m n p)   ; m, n, p: interi positivi
     (cond ((= n 0)
-            p
+           p
            )
           ((even? n)
            (molt-rec (* 2 m) (quotient n 2) p))            ; 2m * n/2 = m*n
           (else
            (+ m (molt-rec (* 2 m) (quotient n 2) (+ m p))) ; 2m * (n-1)/2 = m*(n-1) = m*n-m
            ) 
-      )
+          )
     ))
 
 
@@ -809,12 +809,12 @@ int peasantMul(int m, int n) (
                (if (string=? (substring s 0 k) p)
                    p
                    ""
-                )
-              )
+                   )
+               )
+             )
             )
-        )
       )
-   ))
+    ))
 
 
 ; MCD - ricorsione di coda
@@ -829,8 +829,8 @@ int peasantMul(int m, int n) (
           (else
            (mcd (- x y) y)
            )
-      )
- ))
+          )
+    ))
 ; L'iterazione inizia, con es: 2, 4. --> 2, 2. ---> si ferma nel caso base x=y
 
 ; Programma iterativo equivalente
@@ -873,18 +873,18 @@ int mcd(int x, int y) (
 (define coppie-frt      ; val: interi+
   (lambda (s)            ; s: interi+
     (if (= s 0)
-         1
-         (+ (coppie-frt (- s 1)) (coppie-cucc (- s 1)))
-      )
- ))
+        1
+        (+ (coppie-frt (- s 1)) (coppie-cucc (- s 1)))
+        )
+    ))
 
 (define coppie-cucc
   (lambda (s)
     (if (= s 0)
         0
         (coppie-frt (- s 1))
-     )
- ))
+        )
+    ))
 
 
 
@@ -892,13 +892,13 @@ int mcd(int x, int y) (
 (define encrypt        ; val: stringa
   (lambda (msg rule)   ; msg: stringa, rule: procedure [caratt->caratt]
     (if (string=? msg "")
-         ""
+        ""
         (string-append
-          (string (rule (string-ref msg 0)))
-          (encrypt (substring msg 1) rule)
+         (string (rule (string-ref msg 0)))
+         (encrypt (substring msg 1) rule)
          )
-     )
-  ))
+        )
+    ))
 ; (encrypt "PROGRAMMAZIONE" (lambda (c) c)) --> "PROGRAMMAZIONE"
 ; (encrypt "PROGRAMMAZIONE" char-downcase) --> "programmazione"
 ; (encrypt "PROGRAMMAZIONE" (lambda (c) (integer->char (+ (char->integer c) 1)))) --> "QSPHSBNNB[JPOF"
@@ -914,9 +914,9 @@ int mcd(int x, int y) (
       (if (> k ascii-Z)
           (integer->char (- k 26))
           (integer->char k)
-       )
+          )
       )
-  ))
+    ))
 
 ; Aumenta di 3 la rotazione del carattere.  (M0nic4)
 (define aA (char->integer #\A))  ; costanti
@@ -932,7 +932,7 @@ int mcd(int x, int y) (
           (integer->char (- new-ascii n-car))
           )
       )
-   ))
+    ))
 ; (rgl-cesare #\M) --> #\P
 
 ; Algoritmo "Encrypt" unito a quello di Cesare:
@@ -947,10 +947,10 @@ int mcd(int x, int y) (
         (if (> k ascii-Z)
             (integer->char (- k 26))
             (integer->char k)
-         )
-       )
+            )
+        )
       )
-   ))
+    ))
 
 
 ; Procedure con argomenti e valori procedurali
@@ -958,9 +958,9 @@ int mcd(int x, int y) (
   (lambda (rule)
     (let ((rot (- (char->integer (rule #\A)) ascii-A))
           )
-        (caesar-cipher (- 26 rot))
+      (caesar-cipher (- 26 rot))
       )
-  ))
+    ))
 
 ; input: (define enc (caesar-cipher 3))
 ; input: (define dec (caesar-undoer enc))
@@ -978,15 +978,15 @@ int mcd(int x, int y) (
       (invert c rule 0)
       )
     
- ))
+    ))
 
 (define invert        ; val: 
   (lambda (c rule k)  ; c: car, rule: [caratt-->caratt], k: posizione.
     (if (char=? (rule (integer->char k)) c)
         (integer->char k)
         (invert c rule (+ k 1))
-     )
-  ))
+        )
+    ))
 
 
 ; comando con argomenti procedurali:
@@ -1002,8 +1002,8 @@ int mcd(int x, int y) (
     (if (null? s)
         null
         (cons (f (car s)) (mappa f (cdr s)))    ; primo elemento + tutto il resto
-     )
-  ))
+        )
+    ))
 
 ; espansione:
 ;  (cons (f 1) (mappa f '(2 3)))
@@ -1023,22 +1023,22 @@ int mcd(int x, int y) (
 (define all-lcs-2                                ; val: lista di stringhe
   (lambda (u v)                                  ; u,v: stringhe
     (cond ((or (string=? u "") (string=? v ""))  ; caso base: entrambe vuote
-            (list "")
+           (list "")
            )
           ((char=? (string-ref u 0) (string-ref v 0))   ; 1* carattere uguale per entrambe
            ;(all-prefix (substring u 0 1)
            (map (lambda (x) (string-append (substring u 0 1) x))
                 (all-lcs-2 (substring u 1) (substring v 1))
                 )
-            )
+           )
           (else
            (all-longer-2                                  ; altrimenti iniziano con caratteri
-                    (all-lcs-2 (substring u 1) v)         ; diversi e prendo la più lunga comune.
-                    (all-lcs-2 u (substring v 1))
+            (all-lcs-2 (substring u 1) v)         ; diversi e prendo la più lunga comune.
+            (all-lcs-2 u (substring v 1))
             )
+           )
           )
-      )
- ))
+    ))
 
 ; definisco all-longer con la procedura "merge" per risolvere il problema delle ripetizioni.
 ; definisco all-longer a partire da longer
@@ -1053,19 +1053,19 @@ int mcd(int x, int y) (
              s)
             (else
              ;(append s t)
-              (merge-2 s t)
+             (merge-2 s t)
              )
-         )
-     )  
- ))
+            )
+      )  
+    ))
 
 (define merge-2     ; val: lista di stringhe senza ripetizioni
   (lambda (s t)     ; s,t: lista di stringhe senza ripetizioni
     (if (null? s)
         t
         (cons (car s) (merge-2 (cdr s) (remove (car s) t)))   ; remove: rimuove un specifico elemento da t.
-     )
- ))
+        )
+    ))
 
 ; (remove 3'(1 2 3 4 5)) --> (list 1 2 4 5)
 ; riprovo all-lcs-2 (senza ripetizioni)
@@ -1079,7 +1079,7 @@ int mcd(int x, int y) (
 (define comp      ; val: procedura  [D -> F]
   (lambda (g f)   ; f:D -> E, g:E -> F  (procedure)
     (lambda (x) (g (f x)))
- ))
+    ))
 
 ; Esempio 1: 
 ; (define incr-1 (lambda (x) (+ x 1)))
@@ -1103,25 +1103,25 @@ int mcd(int x, int y) (
 ; dentro iter i due pezzi equivalgono
 
 (define iter
- (lambda (f i)   ; f:D -> D (procedura), i: intero+
-;   (lambda (x)
-;      (if (= i 0)
-;          x
-;          (f ((iter f (- i 1)) x))
-;       )
-;     )
-   (if (= i 0)
-       id                         ; lambda: procedura
-       (comp f (iter f (- i 1)))  ; compongo f con l'iterata f^i-1
-       )
- ))
+  (lambda (f i)   ; f:D -> D (procedura), i: intero+
+    ;   (lambda (x)
+    ;      (if (= i 0)
+    ;          x
+    ;          (f ((iter f (- i 1)) x))
+    ;       )
+    ;     )
+    (if (= i 0)
+        id                         ; lambda: procedura
+        (comp f (iter f (- i 1)))  ; compongo f con l'iterata f^i-1
+        )
+    ))
 
 (define id (lambda (x) x))
 
 (define q
   (lambda (x)
     (+ 1 (/ 1 x))
- ))
+    ))
 
 ((iter q 0) 1)
 ((iter q 1) 1)
@@ -1149,13 +1149,13 @@ int mcd(int x, int y) (
   (lambda (c k)                             ; c,k: lista, intero+
     (cond ((null? c)                        ; caso base(1)
            0   
-          )
-         (else
+           )
+          (else
            (+ (car c) (* k (Q (cdr c) k)))  ; caso ricorsivo(2)
-          ; c1 + x * Q(x) 
+           ; c1 + x * Q(x) 
+           )
           )
-      )
-  ))
+    ))
 
 (define Q
   (lambda (c k)
@@ -1163,10 +1163,10 @@ int mcd(int x, int y) (
            0
            )
           (else
-            (+ (car c) (* k (Q (cdr c) k)))
+           (+ (car c) (* k (Q (cdr c) k)))
            )
-      )
-  ))
+          )
+    ))
 
 ; Esempio input:
 ; P(x) = 3x^2 + 2x + 1
@@ -1180,16 +1180,16 @@ int mcd(int x, int y) (
     (if (= x 0)
         0
         (+ (unknown (- x 1)) (odd x))
-      )
-  ))
+        )
+    ))
 
 (define odd       ; val: intero       2i-1
   (lambda (i)     ; x: intero+
     (if (= i 1)
         1
         (+ (odd (- i 1)) 2)
-      )
-  ))
+        )
+    ))
 
 
 ; Esempio dimostrazione:
@@ -1238,8 +1238,8 @@ int mcd(int x, int y) (
     (if (= n 0)
         1
         (* m (power m (- n 1)))
-     )
- ))
+        )
+    ))
 
 ; Dimostrazione per ind. formale:
 ; 2 argomenti, m,n > 0 con n app.aN -> m^n
@@ -1501,19 +1501,19 @@ int mcd(int x, int y) (
 (define p             ; val: lista
   (lambda (f x y k)   ; f=funzione, x=el, y=el, k=intero+
     (cond ((= k 0)
-            null
+           null
            )
           ((= k 1)
-            (list x)
+           (list x)
            )
           ((= k 2)
-            (list x y)
+           (list x y)
            )
           (else
-            (cons x (p f y (f x y) (- k 1)))   ; applico f ad (x,y) e poi abbasso k di 1 ogni volta.
+           (cons x (p f y (f x y) (- k 1)))   ; applico f ad (x,y) e poi abbasso k di 1 ogni volta.
            )
-       )
-  ))
+          )
+    ))
 
 
 
@@ -1531,24 +1531,24 @@ int mcd(int x, int y) (
 (define rec-proc
   (lambda (i u j v)  ; i,j => 0 indici interi; u,v: stringhe. 
     (cond ((or (string=? u "") (string=? v ""))
-            (list '()'())
+           (list '()'())
            )
           ((char=? (string-ref u 0) (string-ref v 0))
            (let ((x (rec-proc (+ i 1) (substring u 1) (+ j 1) (substring v 1)))
                  )
-                (list (cons i (car x)) (cons j (cadr x)))  ;(car (cdr x))
-            ))
+             (list (cons i (car x)) (cons j (cadr x)))  ;(car (cdr x))
+             ))
           (else
            (let ((x (rec-proc (+ i 1) (substring u 1) j v))
                  (y (rec-proc i u (+ 1 j) (substring v 1)))
                  )
              (if (> (length (car x)) (length (car y)))
-                  x
-                  y
+                 x
+                 y
                  )
-           ))
-      )
-  ))
+             ))
+          )
+    ))
 
 ; SPIEGAZIONE CAR / CDR
 ; (rec-proc 2 "trio" 2 "rto") --> ((2 5) (3 4))
@@ -1564,15 +1564,15 @@ int mcd(int x, int y) (
 (define f
   (lambda (n)
     (tail-rec 1 0 n)
- ))
+    ))
 
 (define tail-rec
   (lambda (i j k)
     (if (= k 0)
         j
         (tail-rec (+ i 2) (+ i j) (- k 1))
-      )
-  ))
+        )
+    ))
 
 ; 3) Verifica formale della correttezza
 ; funzione f, e tail-rec
@@ -1676,7 +1676,7 @@ int mcd(int x, int y) (
              (trec (- n 3) 3)
              )
          )
-       )
+        )
     ))
 
 
@@ -1769,8 +1769,8 @@ int mcd(int x, int y) (
     (if (= k 1)
         (list x)
         (cons x (iter-alt g f (f x) (- k 1)))    ; inverto f e g, calcolo f(x) e scalo 1 da k.
-      )
-  ))
+        )
+    ))
 
 
 
@@ -1787,7 +1787,7 @@ int mcd(int x, int y) (
 (define comb
   (lambda (s)
     (comb-rec s 0 0)
-  ))
+    ))
 
 (define comb-rec
   (lambda (s x y)
@@ -1821,13 +1821,13 @@ int mcd(int x, int y) (
 (define iter-seq2
   (lambda (f x k)
     (cond ((= k 0)
-          '())
+           '())
           ((= k 1) (list x))
           (else
-            (cons x (iter-seq2 f (f x) (- k 1)))
-            )
-        )
-  ))
+           (cons x (iter-seq2 f (f x) (- k 1)))
+           )
+          )
+    ))
 
 
 
@@ -1889,8 +1889,8 @@ int mcd(int x, int y) (
             (manh-rec (- i 1) j k k)
             (manh-rec i (- j 1) k (- v 1))
             ))
-       )
-  ))
+          )
+    ))
 
 
 ; (paths-o 5 1 2) --> ("000001" "000010" "000100" "001000" "010000" "100000)
@@ -1907,7 +1907,7 @@ int mcd(int x, int y) (
 (define paths-o
   (lambda (i j k)
     (paths-rec i j k k)
- ))
+    ))
 
 (define paths-rec
   (lambda (i j k v)
@@ -1932,8 +1932,8 @@ int mcd(int x, int y) (
             (map (lambda (x) (string-append x "1")) ; DX
                  (paths-rec i (- j 1) k (- v 1))))
            )
-       )
-  ))
+          )
+    ))
           
 
 
@@ -1952,10 +1952,10 @@ int mcd(int x, int y) (
 (define scs         ; val: stringa
   (lambda (u v)     ; u,v: stringhe
     (cond ((string=? u "")
-            v
+           v
            )
           ((string=? v "")
-            u
+           u
            )
           ((char=? (string-ref u 0) (string-ref v 0))
            (string-append (substring u 0 1)
@@ -2103,8 +2103,8 @@ int mcd(int x, int y) (
   (lambda (f s)
     (lambda (x)
       (f (- x s))
-     )
-  ))
+      )
+    ))
 
 (define h (shf (lambda(x) (* x x)) 3))
 
@@ -2359,7 +2359,7 @@ int mcd(int x, int y) (
 (define lcs-align  ; val: coppia di liste di caratteri
   (lambda (u v)    ; u, v: stringhe
     (let ((m (string-length u)) (n (string-length v))
-           )
+                                )
       (cond ((or (= m 0) (= n 0))                        ; >=1 /2 stringhe è vuota: caratteri rimanenti vanno rimossi
              (list (string->list u) (string->list v))
              )
@@ -2373,9 +2373,9 @@ int mcd(int x, int y) (
                (if (> (+ (length (car du)) (length (cadr du))) ; scelgo la sol. che rimuove meno caratteri
                       (+ (length (car dv)) (length (cadr dv)))
                       )
-                    ; aggiorna la posizione 1 (rimossi da v), posizione 0 invariata
+                   ; aggiorna la posizione 1 (rimossi da v), posizione 0 invariata
                    (list (car dv) (cons (string-ref v 0) (cadr dv))) 
-                    ; aggiorna la posizione 0 (rimossi da u), posizione 1 invariata                  
+                   ; aggiorna la posizione 0 (rimossi da u), posizione 1 invariata                  
                    (list (cons (string-ref u 0) (car du)) (cadr du))
                    )))
             )
@@ -2612,7 +2612,7 @@ alle variabili du e dv nella prima invocazione della procedura ricorsiva lcs-ali
 (define tailrec-prod
   (lambda (s u)
     (if (null? s)
-         u                 ;(reverse u)
+        u                 ;(reverse u)
         (tailrec-prod
          (cdr s)
          (cons (* (car s) (car u)) u))
@@ -2631,12 +2631,12 @@ alle variabili du e dv nella prima invocazione della procedura ricorsiva lcs-ali
 (define tailrec-sum
   (lambda (u r)
     (if (null? u)
-         r           ;(reverse r)
+        r           ;(reverse r)
         (tailrec-sum
          (cdr u)
          (cons (+ (car u) (car r)) r)
          ))
-  ))
+    ))
 
 
 ; Quarto e ult. es. Dim. Formale correttezza -
@@ -2705,3 +2705,65 @@ alle variabili du e dv nella prima invocazione della procedura ricorsiva lcs-ali
 
 ; ---------------------------------------------------
 
+
+
+
+
+;; clean-up
+
+; (clean-up '("rosa" "garofano" "pervinca" "ciclamino" 
+;  "genziana" "pervinca" "fiordaliso" "rosa"))           → ("garofano" "ciclamino" "genziana" "pervinca" "fiordaliso" "rosa")
+
+(define clean-up
+  (lambda (u)
+    (cond ((null? u)
+            '()
+           )
+          ((member (car u) (cdr u))
+            (clean-up (cdr u))
+           )
+          (else
+            (cons (car u) (clean-up (cdr u)))
+           )
+     )
+  ))
+
+
+;; lps - all con clean up
+; (lps-all-2 "muradaimerlixsostegno") -> (list "madam" "radar" "esose")
+(define lps-all-2
+  (lambda (s)
+    (let ((n (string-length s)))
+      (cond
+        ((< n 2)
+         (list s))
+        ((char=? (string-ref s 0) (string-ref s (- n 1)))
+         (map (lambda (x)
+                (string-append
+                  (substring s 0 1)           ; primo carattere
+                   x                          ; soluzione interna
+                  (substring s (- n 1) n)))   ; ultimo carattere
+              (lps-all-2 (substring s 1 (- n 1)))))
+        (else
+         (longer-all-2
+           (lps-all-2 (substring s 0 (- n 1)))
+           (lps-all-2 (substring s 1 n)))
+         )
+        )
+      )
+  ))
+
+(define longer-all-2       ; val: lista di stringhe
+  (lambda (u v)            ; u, v: liste di stringhe
+    (let ((m (if (null? u) 0 (string-length (car u))))
+          (n (if (null? v) 0 (string-length (car v))))
+          )
+      (cond
+        ((< m n)
+         v)
+        ((> m n)
+         u)
+        (else
+         ; stessa lunghezza: unisco ed elimino dup.
+         (clean-up (append u v)))
+      ))))

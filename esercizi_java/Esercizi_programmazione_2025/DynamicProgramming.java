@@ -62,7 +62,8 @@ public class DynamicProgramming {
         for(int i=0; i<=n; i++) {
             mem[i] = UNKNOWN;
         }
-    return fibRec(n, mem);
+        
+        return fibRec(n, mem);
     }
     
     public static long fibRec(int n, long[] mem) {
@@ -96,7 +97,7 @@ public class DynamicProgramming {
     }
     
     
-    // tecnica: MEMOIZATION
+    // tecnica: TOP-DOWN (MEMOIZATION)
     // DynamicProgramming.pathsMem(5,5) --> 252
     
     public static long pathsMem(int i, int j) {
@@ -179,7 +180,7 @@ public class DynamicProgramming {
        if(k == 1 || n == k) {
            return 1;
        } else {
-           return st(n-1,k-1) + (st(n-1,k))*k;
+           return st(n-1,k-1) + (st(n-1,k)) * k;
        }
     }
     

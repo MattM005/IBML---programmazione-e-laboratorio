@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=isPeriodic
+comment1.params=seq\ tau
+comment1.target=boolean\ isPeriodic(double[],\ int)
+numComments=2

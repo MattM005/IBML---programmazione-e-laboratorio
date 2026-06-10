@@ -96,4 +96,26 @@ public class IOTest {
         return count;
     }
      */
+    
+    
+    
+    public static boolean isPeriodic(double[] seq, int tau) {
+        
+        if(seq == null || tau <= 0) {
+            return false;
+        }
+        
+        if(tau >= seq.length) {
+            return true;
+        }
+        
+        for(int i = tau; i < seq.length; i=i+1) {
+            if(seq[i] != seq[i - tau]) {
+                return false;
+            }
+        }
+        
+        return true;
+    }  
+    
 }
