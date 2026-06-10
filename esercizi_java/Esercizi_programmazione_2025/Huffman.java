@@ -26,6 +26,7 @@ public class Huffman {
             char c = in.readChar();
             freq[c]++;
         }
+        
         in.close();
         return freq;
     }
@@ -67,7 +68,6 @@ public class Huffman {
             }
         }
         
-        // fillTable("", root, tab);
         return tab;
     }
     
@@ -80,7 +80,7 @@ public class Huffman {
         }
     }
     
-    // classe aggiunta pr.lab.ddm
+    // classe aggiunta docent.lab.ddm
     public static String sequentializedTree(Node n) {
         Stack<Node> s = new Stack<Node>();
         s.push(n);
@@ -106,19 +106,7 @@ public class Huffman {
         
         return out; 
     }
-    
-    /*public static String sequentializedTree(Node n) {
-        if(n.isLeaf()) {
-            char c = n.symbol();
-            if((c=='@') || (c=='\\')) {
-                return "\\" + c;
-            } else {
-                return "" + c;   
-            }
-        } else {
-            return "@" + sequentializedTree(n.left()) + sequentializedTree(n.right());
-        }
-    }*/
+
     // Huffman.compress("Huffman.java", "C.txt")
     // tante "@" quanti sono i nodi intermedi e sottoalberi
     
@@ -156,8 +144,7 @@ public class Huffman {
         InputTextFile in = new InputTextFile(src);
         OutputTextFile out = new OutputTextFile(dst);
         
-        int count = Integer.parseInt(in.readTextLine());
-        
+        int count = Integer.parseInt(in.readTextLine());  
         Node root = restoreTree(in);
         char newLine = in.readChar();
         
@@ -175,9 +162,9 @@ public class Huffman {
         
         do {
             int bit = in.readBit();
-            if(bit == 0) {  // sx
+            if(bit == 0) {              // sx
                 n = n.left();
-            } else {        // dx
+            } else {                    // dx
                 n = n.right();
             }  
         } while(!n.isLeaf());
